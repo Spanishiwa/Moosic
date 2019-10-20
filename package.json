@@ -1,0 +1,32 @@
+{
+  "name": "Moosic",
+  "version": "1.0.0",
+  "description": "Hosted using free gh-pages powered with ReactJS and transpiled with Babel. NPM Packages used (8): `webpack`, `webpack-cli`, `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `babel-loader`, `react`, `react-dom`.",
+  "main": "app.jsx",
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+    , "webpack": "webpack --mode=development --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spanishiwa/Moosic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Spanishiwa/Moosic/issues"
+  },
+  "homepage": "https://github.com/Spanishiwa/Moosic#readme"
+}
