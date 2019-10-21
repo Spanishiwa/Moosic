@@ -2,6 +2,32 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 
+class Songs extends React.Component {
+    render () {
+        const selectedSong = this.props.selectedSong
+        const songs = Array.from(this.props.album).map((song, idx) => {
+            const albumTitle = song.dataset.albumTitle
+            const artistTitle = song.dataset.artistTitle
+            const songLengthSeconds = song.dataset.songLengthSeconds
+            const songTitle = song.dataset.songTitle
+            return (
+                <li key={idx}>
+                    {songTitle}
+                    ,{songLengthSeconds}
+                    ,{artistTitle}
+                    ,{albumTitle}
+                </li>
+            )
+        })
+
+        return (
+            <ul>
+                {songs}
+            </ul>
+        )
+    }
+}
+
 export default class Album extends React.Component {
     constructor(props) {
         super(props)
@@ -12,14 +38,14 @@ export default class Album extends React.Component {
     }
 
     render() {
-        const album = document.querySelector('#album-list')
-        const songTitle = album.children[0].dataset.songTitle
-        const songLengthSeconds = album.children[0].dataset.songLengthSeconds
-        const artistTitle = album.children[0].dataset.artistTitle
-        const albumTitle = album.children[0].dataset.albumTitle
+        const album = document.querySelector('#album-list').children
+        const songTitle = album[0].dataset.songTitle
+        const songLengthSeconds = album[0].dataset.songLengthSeconds
+        const artistTitle = album[0].dataset.artistTitle
+        const albumTitle = album[0].dataset.albumTitle
 
         return (
-            <li>{songTitle} {songLengthSeconds} {artistTitle} {albumTitle}</li>
+            <Songs album={album}></Songs>
         )
     }
 }

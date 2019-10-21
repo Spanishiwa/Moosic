@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Album from './album'
-
+import { confirmArrayFrom } from './util'
 
 function Root() {
+    confirmArrayFrom();
+
     return (
         <div>
             <ul>

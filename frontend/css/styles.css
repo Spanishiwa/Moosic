@@ -10,4 +10,7 @@ body {
 body .main-content {
   color: #FF0000;
 }
+body #album-list {
+  display: none;
+}
 /*# sourceMappingURL=styles.css.map */
