@@ -1,8 +1,8 @@
 {
   "name": "Moosic",
   "version": "1.0.0",
-  "description": "Hosted using free gh-pages powered with ReactJS, transpiled with Babel, and styled with LESS. NPM Packages used (8): `webpack`, `webpack-cli`, `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `babel-loader`, `react`, `react-dom`.",
-  "main": "App.jsx",
+  "description": "Hosted using free gh-pages powered with ReactJS, transpiled with Babel, and styled with LESS. NPM Packages used (10): `webpack`, `webpack-cli`, `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `babel-loader`, `react`, `react-dom`, `less`, `less-watch-compiler`.",
+  "main": "frontend/js/app.jsx",
   "dependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",

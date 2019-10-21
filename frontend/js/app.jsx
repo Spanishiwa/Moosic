@@ -1,10 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Album from './album'
+
 
 function Root() {
     return (
         <div>
-            Hello World in React
+            <ul>
+                <Album />
+            </ul>
+
         </div>
     )
 }

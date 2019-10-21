@@ -1,1 +1,1 @@
-Hosted using free gh-pages powered with ReactJS and transpiled with Babel. NPM Packages used (8): `webpack`, `webpack-cli`, `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `babel-loader`, `react`, `react-dom`.
+Hosted using free gh-pages powered with ReactJS, transpiled with Babel, and styled with LESS. NPM Packages used (8): `webpack`, `webpack-cli`, `@babel/core`, `@babel/preset-env`, `@babel/preset-react`, `babel-loader`, `react`, `react-dom`.

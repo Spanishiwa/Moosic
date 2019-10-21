@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Syncopate';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Syncopate Regular'), local('Syncopate-Regular'), url(https://fonts.gstatic.com/s/syncopate/v11/pe0sMIuPIYBCpEV5eFdCBfe6.ttf) format('truetype');
+}
 body {
   font-family: Syncopate;
 }
