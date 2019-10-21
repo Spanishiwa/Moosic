@@ -86,16 +86,50 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./frontend/js/album.jsx":
-/*!*******************************!*\
-  !*** ./frontend/js/album.jsx ***!
-  \*******************************/
+/***/ "./frontend/js/app.jsx":
+/*!*****************************!*\
+  !*** ./frontend/js/app.jsx ***!
+  \*****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _playList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./playList */ "./frontend/js/playList.jsx");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./frontend/js/util.jsx");
+
+
+
+
+
+function Root() {
+  Object(_util__WEBPACK_IMPORTED_MODULE_3__["confirmArrayFrom"])();
+  var songs = document.querySelector('#playListData').children;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_playList__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    songs: songs
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Root, null), document.getElementById('main-content'));
+});
+
+/***/ }),
+
+/***/ "./frontend/js/playList.jsx":
+/*!**********************************!*\
+  !*** ./frontend/js/playList.jsx ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Album; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PlayList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
@@ -121,103 +155,90 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Songs =
+var Song =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Songs, _React$Component);
+  _inherits(Song, _React$Component);
 
-  function Songs() {
-    _classCallCheck(this, Songs);
+  function Song() {
+    _classCallCheck(this, Song);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Songs).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Song).apply(this, arguments));
   }
 
-  _createClass(Songs, [{
+  _createClass(Song, [{
     key: "render",
+    // render : PlayList -> Object
     value: function render() {
-      var selectedSong = this.props.selectedSong;
-      var songs = Array.from(this.props.album).map(function (song, idx) {
-        var albumTitle = song.dataset.albumTitle;
-        var artistTitle = song.dataset.artistTitle;
-        var songLengthSeconds = song.dataset.songLengthSeconds;
-        var songTitle = song.dataset.songTitle;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: idx
-        }, songTitle, ",", songLengthSeconds, ",", artistTitle, ",", albumTitle);
-      });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, songs);
+      var _this = this;
+
+      var klass = this.props.idx === this.props.selectedIdx ? 'active' : '';
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: klass,
+        onClick: function onClick() {
+          return _this.props.onSelection(_this.props.idx);
+        }
+      }, this.props.title, ",", this.props.durationSeconds, ",", this.props.artistTitle, ",", this.props.albumTitle);
     }
   }]);
 
-  return Songs;
+  return Song;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var Album =
+var PlayList =
 /*#__PURE__*/
 function (_React$Component2) {
-  _inherits(Album, _React$Component2);
+  _inherits(PlayList, _React$Component2);
 
-  function Album(props) {
-    var _this;
+  function PlayList(props) {
+    var _this2;
 
-    _classCallCheck(this, Album);
+    _classCallCheck(this, PlayList);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Album).call(this, props));
-    _this.state = {
-      selectedSong: 0
+    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(PlayList).call(this, props));
+    _this2.state = {
+      selectedSongIdx: -1,
+      songs: _this2.props.songs
     };
-    return _this;
+    _this2.selectSong = _this2.selectSong.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
-  _createClass(Album, [{
+  _createClass(PlayList, [{
+    key: "selectSong",
+    value: function selectSong(idx) {
+      this.setState({
+        selectedSongIdx: idx
+      });
+    } // Object -> Object
+
+  }, {
     key: "render",
     value: function render() {
-      var album = document.querySelector('#album-list').children;
-      var songTitle = album[0].dataset.songTitle;
-      var songLengthSeconds = album[0].dataset.songLengthSeconds;
-      var artistTitle = album[0].dataset.artistTitle;
-      var albumTitle = album[0].dataset.albumTitle;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Songs, {
-        album: album
+      var _this3 = this;
+
+      var playList = Array.from(this.state.songs).map(function (song, idx) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Song, {
+          key: idx,
+          artistTitle: song.dataset.artistTitle,
+          albumTitle: song.dataset.albumTitle,
+          durationSeconds: song.dataset.songDurationSeconds,
+          idx: idx,
+          selectedIdx: _this3.state.selectedSongIdx,
+          onSelection: _this3.selectSong,
+          title: song.dataset.songTitle
+        });
       });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "playList"
+      }, playList);
     }
   }]);
 
-  return Album;
+  return PlayList;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
-
-/***/ }),
-
-/***/ "./frontend/js/app.jsx":
-/*!*****************************!*\
-  !*** ./frontend/js/app.jsx ***!
-  \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _album__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./album */ "./frontend/js/album.jsx");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./frontend/js/util.jsx");
-
-
-
-
-
-function Root() {
-  Object(_util__WEBPACK_IMPORTED_MODULE_3__["confirmArrayFrom"])();
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_album__WEBPACK_IMPORTED_MODULE_2__["default"], null)));
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Root, null), document.getElementById('main-content'));
-});
 
 /***/ }),
 
@@ -285,7 +306,7 @@ function confirmArrayFrom() {
           // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
           if (!isCallable(mapFn)) {
             throw new TypeError('Array.from: when provided, the second argument must be a function');
-          } // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
+          } // 5. b. If thisArg was supplied, let T be thisArg else let T be undefined.
 
 
           if (arguments.length > 2) {
@@ -325,10 +346,7 @@ function confirmArrayFrom() {
       };
     }();
   }
-
-  ;
 }
-;
 
 /***/ }),
 

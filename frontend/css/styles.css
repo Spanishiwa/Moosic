@@ -10,7 +10,13 @@ body {
 body .main-content {
   color: #FF0000;
 }
-body #album-list {
+body .main-content .playList li {
+  cursor: pointer;
+}
+body .main-content .playList li:hover {
+  background: #8e8e8e;
+}
+body #playListData {
   display: none;
 }
 /*# sourceMappingURL=styles.css.map */

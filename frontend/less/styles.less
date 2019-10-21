@@ -10,9 +10,19 @@ body {
 
     .main-content{
         color: @red-color;
+
+        .playList {
+            li {
+                cursor: pointer;
+
+                &:hover {
+                    background: #8e8e8e;
+                }
+            }
+        }
     }
 
-    #album-list {
+    #playListData {
         display: none;
     }
 }

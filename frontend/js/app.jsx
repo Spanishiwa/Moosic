@@ -1,18 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Album from './album'
+import PlayList from './playList'
 import { confirmArrayFrom } from './util'
 
+
 function Root() {
-    confirmArrayFrom();
+    confirmArrayFrom()
+    const songs = document.querySelector('#playListData').children
 
     return (
-        <div>
-            <ul>
-                <Album />
-            </ul>
-
-        </div>
+        <PlayList songs={songs} />
     )
 }
 
