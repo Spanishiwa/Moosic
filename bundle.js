@@ -210,7 +210,7 @@ function (_React$Component2) {
       this.setState({
         selectedSongIdx: idx
       });
-    } // Object -> Object
+    } // render : Object -> Object
 
   }, {
     key: "render",

@@ -36,7 +36,7 @@ export default class PlayList extends React.Component {
         this.setState({selectedSongIdx: idx})
     }
 
-    // Object -> Object
+    // render : Object -> Object
     render() {
         const playList = Array.from(this.state.songs).map((song, idx) => {
             return (

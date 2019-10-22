@@ -2,10 +2,13 @@
   font-family: 'Syncopate';
   font-style: normal;
   font-weight: 400;
-  src: local('Syncopate Regular'), local('Syncopate-Regular'), url(https://fonts.gstatic.com/s/syncopate/v11/pe0sMIuPIYBCpEV5eFdCBfe6.ttf) format('truetype');
+  src: url('../css/fonts/syncopate-v11-latin-regular.eot');
+  /* IE9 Compat Modes */
+  src: local('Syncopate Regular'), local('Syncopate-Regular'), url('../css/fonts/syncopate-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../css/fonts/syncopate-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../css/fonts/syncopate-v11-latin-regular.woff') format('woff'), /* Modern Browsers */ url('../css/fonts/syncopate-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../css/fonts/syncopate-v11-latin-regular.svg#Syncopate') format('svg');
+  /* Legacy iOS */
 }
 body {
-  font-family: Syncopate;
+  font-family: 'Syncopate';
 }
 body .main-content {
   color: #FF0000;
