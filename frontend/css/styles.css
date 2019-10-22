@@ -8,73 +8,85 @@
   /* Legacy iOS */
 }
 body {
-  font-family: 'Syncopate';
   background-color: #eee;
+  font-family: 'Syncopate';
 }
 body main {
-  color: #efdf00;
   background-color: #66025c;
-  max-width: 1280px;
+  color: #efdf00;
   margin: auto;
+  max-width: 1280px;
 }
 body main .playList {
+  border-radius: 3px;
+  height: 100%;
   margin: 0;
   padding: 0;
   position: relative;
-  -webkit-transition: -webkit-box-shadow 0.6s;
   transition: box-shadow 0.6s, -webkit-box-shadow 0.6s;
-  border-radius: 2px;
-  height: 100%;
+  -webkit-transition: -webkit-box-shadow 0.6s;
 }
 body main .playList li {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 1px;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: #66025c;
   border: 2px solid transparent;
+  border-radius: 3px;
   box-shadow: 0 0 0 1px #66025c inset, 1px 1px 3px 2px #66025c inset;
   box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li:before,
 body main .playList li:after {
-  -webkit-box-sizing: inherit;
   box-sizing: inherit;
+  -webkit-box-sizing: inherit;
 }
 body main .playList li:after {
+  clear: both;
   content: "";
   display: table;
-  clear: both;
 }
 body main .playList li:hover {
   background-color: #cbbe00;
-  color: #66025c;
   border: 2px dashed #66025c;
+  color: #66025c;
   text-shadow: -1px -1px #980389;
   transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
+body main .playList li:hover:not(.active) {
+  animation: border-dance 1s infinite linear;
+  background: linear-gradient(90deg, #66025c 50%, #cbbe00 50%), linear-gradient(90deg, #66025c 50%, #cbbe00 50%), linear-gradient(0deg, #66025c 50%, #cbbe00 50%), linear-gradient(0deg, #66025c 50%, #cbbe00 50%);
+  background-color: #cbbe00;
+  background-position: left top, right bottom, left bottom, right   top;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 15px 4px, 15px 4px, 4px 15px, 4px 15px;
+  border: 2px solid #66025c;
+  color: #66025c;
+}
 body main .playList li div {
-  float: left;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 0.75rem;
-  min-height: 1px;
-  width: 50%;
-  margin-left: auto;
+  float: left;
   left: auto;
+  margin-left: auto;
+  min-height: 1px;
+  padding: 0 0.75rem;
   right: auto;
+  -webkit-box-sizing: border-box;
+  width: 50%;
 }
 body main .playList li.active {
   background-color: #efdf00;
-  color: #66025c;
-  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #66025c inset;
-  text-shadow: -1px -1px #980389;
   border: 2px solid transparent;
+  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #66025c inset;
   box-sizing: border-box;
+  color: #66025c;
+  text-shadow: -1px -1px #980389;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li.active:hover {
@@ -84,71 +96,79 @@ body #playListData {
   display: none;
 }
 html {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
 .row {
+  margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 20px;
 }
 .row:before,
 .row:after {
-  -webkit-box-sizing: inherit;
   box-sizing: inherit;
+  -webkit-box-sizing: inherit;
 }
 .row:after {
+  clear: both;
   content: "";
   display: table;
-  clear: both;
 }
 .row .col {
-  float: left;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 0.75rem;
+  float: left;
   min-height: 1px;
+  padding: 0 0.75rem;
+  -webkit-box-sizing: border-box;
 }
 .row .col.s6 {
-  width: 50%;
-  margin-left: auto;
   left: auto;
+  margin-left: auto;
   right: auto;
+  width: 50%;
 }
 .row .col.s12 {
-  width: 100%;
-  margin-left: auto;
   left: auto;
+  margin-left: auto;
   right: auto;
+  width: 100%;
 }
 .col .row {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 }
+@keyframes border-dance {
+  0% {
+    background-position: left top, right bottom, left bottom, right   top;
+  }
+  100% {
+    background-position: left 15px top, right 15px bottom, left bottom 15px, right   top 15px;
+  }
+}
 @media only screen and (min-width: 601px) {
   body main .playList li div {
-    width: 25%;
-    margin-left: auto;
     left: auto;
+    margin-left: auto;
     right: auto;
+    width: 25%;
   }
   .row .col.m3 {
-    width: 25%;
-    margin-left: auto;
     left: auto;
+    margin-left: auto;
     right: auto;
+    width: 25%;
   }
   .row .col.m6 {
-    width: 50%;
-    margin-left: auto;
     left: auto;
+    margin-left: auto;
     right: auto;
+    width: 50%;
   }
   .row .col.m12 {
-    width: 100%;
-    margin-left: auto;
     left: auto;
+    margin-left: auto;
     right: auto;
+    width: 100%;
   }
 }
 /*# sourceMappingURL=styles.css.map */
