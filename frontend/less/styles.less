@@ -15,19 +15,49 @@
 // Variables
 @font-family: 'Syncopate';
 @red-color: #FF0000;
+@primary-color: #a4208e;
+@secondary-color: #fcf100;
+@tertiary-color: #00a35c;
 
 body {
     font-family: @font-family;
+    background-color: @primary-color;
 
-    .main-content{
-        color: @red-color;
-
+    main {
+        color: @tertiary-color;
+        background-color: @secondary-color;
         .playList {
             li {
                 cursor: pointer;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 20px;
+
+                &:before, &:after {
+                    -webkit-box-sizing: inherit;
+                    box-sizing: inherit;
+                }
+
+                &:after {
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
 
                 &:hover {
                     background: #8e8e8e;
+                }
+
+                div {
+                    float: left;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    padding: 0 0.75rem;
+                    min-height: 1px;
+                    width: 50%;
+                    margin-left: auto;
+                    left: auto;
+                    right: auto;
                 }
             }
         }
@@ -35,5 +65,99 @@ body {
 
     #playListData {
         display: none;
+    }
+}
+
+//fouc-fix
+html {
+    visibility: visible;
+    opacity: 1;
+}
+
+// Materialize CSS styles
+.row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+
+    &:before, &:after {
+        -webkit-box-sizing: inherit;
+        box-sizing: inherit;
+    }
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .col {
+        float: left;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0 0.75rem;
+        min-height: 1px;
+    }
+
+    .col.s6 {
+        width: 50%;
+        margin-left: auto;
+        left: auto;
+        right: auto;
+    }
+
+    .col.s12 {
+        width: 100%;
+        margin-left: auto;
+        left: auto;
+        right: auto;
+    }
+}
+
+.col {
+    .row {
+        margin-left: -0.75rem;
+        margin-right: -0.75rem;
+    }
+}
+
+// media queries
+@media only screen and (min-width: 601px) {
+    body {
+        main {
+        .playList {
+            li {
+                div {
+                    width: 25%;
+                    margin-left: auto;
+                    left: auto;
+                    right: auto;
+                }
+            }
+        }
+        }
+    }
+
+    .row {
+        .col.m3 {
+            width: 25%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+        }
+
+        .col.m6 {
+            width: 50%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+        }
+
+        .col.m12 {
+            width: 100%;
+            margin-left: auto;
+            left: auto;
+            right: auto;
+        }
     }
 }

@@ -178,7 +178,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.onSelection(_this.props.idx);
         }
-      }, this.props.title, ",", this.props.durationSeconds, ",", this.props.artistTitle, ",", this.props.albumTitle);
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.durationSeconds), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.albumTitle));
     }
   }]);
 
