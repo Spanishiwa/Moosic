@@ -9,17 +9,36 @@
 }
 body {
   font-family: 'Syncopate';
-  background-color: #a4208e;
+  background-color: #eee;
 }
 body main {
-  color: #00a35c;
-  background-color: #fcf100;
+  color: #efdf00;
+  background-color: #66025c;
+  max-width: 1280px;
+  margin: auto;
+}
+body main .playList {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  -webkit-transition: -webkit-box-shadow 0.6s;
+  transition: box-shadow 0.6s, -webkit-box-shadow 0.6s;
+  border-radius: 2px;
+  height: 100%;
 }
 body main .playList li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 1px;
   cursor: pointer;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 20px;
+  border: 2px solid transparent;
+  box-shadow: 0 0 0 1px #66025c inset, 1px 1px 3px 2px #66025c inset;
+  box-sizing: border-box;
+  transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li:before,
 body main .playList li:after {
@@ -32,7 +51,11 @@ body main .playList li:after {
   clear: both;
 }
 body main .playList li:hover {
-  background: #8e8e8e;
+  background-color: #cbbe00;
+  color: #66025c;
+  border: 2px dashed #66025c;
+  text-shadow: -1px -1px #980389;
+  transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li div {
   float: left;
@@ -44,6 +67,18 @@ body main .playList li div {
   margin-left: auto;
   left: auto;
   right: auto;
+}
+body main .playList li.active {
+  background-color: #efdf00;
+  color: #66025c;
+  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #66025c inset;
+  text-shadow: -1px -1px #980389;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+body main .playList li.active:hover {
+  border: 2px solid transparent;
 }
 body #playListData {
   display: none;
