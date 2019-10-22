@@ -12,10 +12,10 @@ class Song extends React.Component {
             className={klass}
             onClick={() => this.props.onSelection(this.props.idx)}
             >
-                <div>{this.props.title}</div>
-                <div>{this.props.durationSeconds}</div>
-                <div>{this.props.artistTitle}</div>
-                <div>{this.props.albumTitle}</div>
+                <div className="sm9 m4">{this.props.title}</div>
+                <div className="sm3 m2">{this.props.durationSeconds}</div>
+                <div className="sm6 m3">{this.props.artistTitle}</div>
+                <div className="sm6 m3">{this.props.albumTitle}</div>
             </li>
         )
     }

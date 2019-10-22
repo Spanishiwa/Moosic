@@ -7,6 +7,14 @@
   src: local('Syncopate Regular'), local('Syncopate-Regular'), url('../css/fonts/syncopate-v11-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../css/fonts/syncopate-v11-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../css/fonts/syncopate-v11-latin-regular.woff') format('woff'), /* Modern Browsers */ url('../css/fonts/syncopate-v11-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../css/fonts/syncopate-v11-latin-regular.svg#Syncopate') format('svg');
   /* Legacy iOS */
 }
+@keyframes border-dance {
+  0% {
+    background-position: left top, right bottom, left bottom, right   top;
+  }
+  100% {
+    background-position: left 15px top, right 15px bottom, left bottom 15px, right   top 15px;
+  }
+}
 body {
   background-color: #eee;
   font-family: 'Syncopate';
@@ -22,9 +30,6 @@ body main .playList {
   height: 100%;
   margin: 0;
   padding: 0;
-  position: relative;
-  transition: box-shadow 0.6s, -webkit-box-shadow 0.6s;
-  -webkit-transition: -webkit-box-shadow 0.6s;
 }
 body main .playList li {
   align-items: center;
@@ -34,12 +39,9 @@ body main .playList li {
   box-shadow: 0 0 0 1px #66025c inset, 1px 1px 3px 2px #66025c inset;
   box-sizing: border-box;
   cursor: pointer;
-  display: flex;
   justify-content: center;
   margin-bottom: 1px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 10px;
+  padding: 15px 10px 10px 10px;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li:before,
@@ -65,20 +67,16 @@ body main .playList li:hover:not(.active) {
   background-color: #cbbe00;
   background-position: left top, right bottom, left bottom, right   top;
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-  background-size: 15px 4px, 15px 4px, 4px 15px, 4px 15px;
+  background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
   border: 2px solid #66025c;
   color: #66025c;
 }
 body main .playList li div {
   box-sizing: border-box;
-  float: left;
-  left: auto;
-  margin-left: auto;
-  min-height: 1px;
-  padding: 0 0.75rem;
-  right: auto;
+  flex: 0 0 auto;
+  flex-basis: 50%;
+  max-width: 50%;
   -webkit-box-sizing: border-box;
-  width: 50%;
 }
 body main .playList li.active {
   background-color: #efdf00;
@@ -95,80 +93,58 @@ body main .playList li.active:hover {
 body #playListData {
   display: none;
 }
+.row,
+body main .playList li {
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.col {
+  flex: 0 0 auto;
+}
+.m2 {
+  flex-basis: 16.66666667%;
+  max-width: 16.66666667%;
+}
+.m4 {
+  flex-basis: 33.33333333%;
+  max-width: 33.33333333%;
+}
+.sm3,
+.m3 {
+  flex-basis: 25%;
+  max-width: 25%;
+}
+.sm6 {
+  flex-basis: 50%;
+  max-width: 50%;
+}
+.sm9 {
+  flex-basis: 75%;
+  max-width: 75%;
+}
 html {
   opacity: 1;
   visibility: visible;
 }
-.row {
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.row:before,
-.row:after {
-  box-sizing: inherit;
-  -webkit-box-sizing: inherit;
-}
-.row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-.row .col {
-  box-sizing: border-box;
-  float: left;
-  min-height: 1px;
-  padding: 0 0.75rem;
-  -webkit-box-sizing: border-box;
-}
-.row .col.s6 {
-  left: auto;
-  margin-left: auto;
-  right: auto;
-  width: 50%;
-}
-.row .col.s12 {
-  left: auto;
-  margin-left: auto;
-  right: auto;
-  width: 100%;
-}
-.col .row {
-  margin-left: -0.75rem;
-  margin-right: -0.75rem;
-}
-@keyframes border-dance {
-  0% {
-    background-position: left top, right bottom, left bottom, right   top;
+@media screen and (min-width: 601px) {
+  body main .playList li {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  100% {
-    background-position: left 15px top, right 15px bottom, left bottom 15px, right   top 15px;
+  body main .playList li div.m2 {
+    flex-basis: 16.66666667%;
+    max-width: 16.66666667%;
   }
-}
-@media only screen and (min-width: 601px) {
-  body main .playList li div {
-    left: auto;
-    margin-left: auto;
-    right: auto;
-    width: 25%;
+  body main .playList li div.m3 {
+    flex-basis: 25%;
+    max-width: 25%;
   }
-  .row .col.m3 {
-    left: auto;
-    margin-left: auto;
-    right: auto;
-    width: 25%;
-  }
-  .row .col.m6 {
-    left: auto;
-    margin-left: auto;
-    right: auto;
-    width: 50%;
-  }
-  .row .col.m12 {
-    left: auto;
-    margin-left: auto;
-    right: auto;
-    width: 100%;
+  body main .playList li div.m4 {
+    flex-basis: 33.33333333%;
+    max-width: 33.33333333%;
   }
 }
 /*# sourceMappingURL=styles.css.map */

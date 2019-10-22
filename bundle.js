@@ -178,7 +178,15 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.onSelection(_this.props.idx);
         }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.durationSeconds), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.albumTitle));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sm9 m4"
+      }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sm3 m2"
+      }, this.props.durationSeconds), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sm6 m3"
+      }, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sm6 m3"
+      }, this.props.albumTitle));
     }
   }]);
 
