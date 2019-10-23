@@ -1,4 +1,4 @@
-// FOUC-Fix syncopate-regular - latin //
+// syncopate-regular - latin //
 @font-face {
     font-family: 'Syncopate';
     font-style: normal;
@@ -12,6 +12,19 @@
         url('../css/fonts/syncopate-v11-latin-regular.svg#Syncopate') format('svg'); /* Legacy iOS */
 }
 
+// Material-icons
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../css/fonts/iconfont/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url('../css/fonts/iconfont/MaterialIcons-Regular.woff2') format('woff2'),
+       url('../css/fonts/iconfont/MaterialIcons-Regular.woff') format('woff'),
+       url('../css/fonts/iconfont/MaterialIcons-Regular.ttf') format('truetype');
+}
+
 // Variables
 @font-family: 'Syncopate';
 
@@ -23,6 +36,7 @@
 @secondary-color: darken(@secondary-color-base, 10%);
 @secondary-color-light: lighten(@secondary-color, 10%);
 
+
 // Keyframes
 @keyframes border-dance {
     0% {
@@ -31,6 +45,16 @@
 
     100% {
         background-position: left 15px top, right 15px bottom, left bottom 15px, right   top 15px;
+    }
+}
+
+@keyframes rotate-dance {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -74,22 +98,24 @@ body {
                     display: table;
                 }
 
-                &:hover {
-                    background-color: @primary-color;
-                    border: 2px dashed @secondary-color;
-                    color: @secondary-color;
-                    text-shadow: -1px -1px @secondary-color-light;
-                    transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
-
-                    &:not(.active) {
-                        animation: border-dance 1s infinite linear;
-                        background: linear-gradient(90deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(90deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(0deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(0deg,  @secondary-color 50%, @primary-color 50%);
+                &:not(.controls) {
+                    &:hover {
                         background-color: @primary-color;
-                        background-position: left top, right bottom, left bottom, right   top;
-                        background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-                        background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
-                        border: 2px solid @primary-color;
+                        border: 2px dashed @secondary-color;
                         color: @secondary-color;
+                        text-shadow: -1px -1px @secondary-color-light;
+                        transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+                        &:not(.active) {
+                            animation: border-dance 1s infinite linear;
+                            background: linear-gradient(90deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(90deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(0deg,  @secondary-color 50%, @primary-color 50%), linear-gradient(0deg,  @secondary-color 50%, @primary-color 50%);
+                            background-color: @primary-color;
+                            background-position: left top, right bottom, left bottom, right top;
+                            background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+                            background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
+                            border: 2px solid @primary-color;
+                            color: @secondary-color;
+                        }
                     }
                 }
 
@@ -102,15 +128,37 @@ body {
 
             li.active {
                 background-color: @primary-color-light;
-                border: 2px solid transparent;
-                box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @secondary-color inset;
+                border: 2px solid @primary-color;
+                box-shadow: 0 0 0 1px @secondary-color inset, 1px 1px 3px 2px @secondary-color inset;
                 box-sizing: border-box;
                 color: @secondary-color;
                 text-shadow: -1px -1px @secondary-color-light;
                 transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
                 &:hover {
-                    border: 2px solid transparent;
+                    border: 2px outset @primary-color;
+                }
+            }
+
+            li.controls {
+                .material-icons {
+                    border: 1px solid transparent;
+                    border-radius: 50%;
+                    box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @secondary-color inset;
+                    text-shadow: -1px -1px @secondary-color-light;
+                    transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+                }
+                &:hover {
+                    .material-icons {
+                        background-color: @primary-color-light;
+                        border: 1px solid @secondary-color;
+                        border-radius: 50%;
+                        box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @secondary-color inset;
+                        box-sizing: border-box;
+                        color: @secondary-color;
+                        text-shadow: -1px -1px @secondary-color-light;
+                        transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+                    }
                 }
             }
         }
@@ -120,6 +168,33 @@ body {
         display: none;
     }
 }
+
+// Material-icons
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
 
 // flexboxgrid styles
 .flex-col(@size) {
@@ -144,6 +219,10 @@ body {
 
 .m4 {
     .flex-col(4);
+}
+
+.sm1, .m1 {
+    .flex-col(1);
 }
 
 
@@ -176,6 +255,10 @@ html {
                     flex-wrap: wrap;
 
                     div:extend(.col) {
+                    }
+
+                    div.m1 {
+                        .m1;
                     }
 
                     div.m2 {

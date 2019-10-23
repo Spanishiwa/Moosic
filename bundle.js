@@ -108,7 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Root() {
   Object(_util__WEBPACK_IMPORTED_MODULE_3__["confirmArrayFrom"])();
-  var songs = document.querySelector('#playListData').children;
+  var songs = Array.from(document.querySelector('#playListData').children);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_playList__WEBPACK_IMPORTED_MODULE_2__["default"], {
     songs: songs
   });
@@ -210,9 +210,11 @@ function (_React$Component2) {
     _this2.state = {
       playing: false,
       selectedSongIdx: -1,
-      songs: Array.from(_this2.props.songs)
+      songs: _this2.props.songs
     };
     _this2.selectSong = _this2.selectSong.bind(_assertThisInitialized(_this2));
+    _this2.play = _this2.play.bind(_assertThisInitialized(_this2));
+    _this2.pause = _this2.pause.bind(_assertThisInitialized(_this2));
     return _this2;
   } // countTracks : PlayList -> Number
 
@@ -220,18 +222,27 @@ function (_React$Component2) {
   _createClass(PlayList, [{
     key: "countTracks",
     value: function countTracks() {
-      var songs = this.state.songs;
-      return songs.length;
-    } // play : PlayList -> PlayList
+      return this.state.songs.length;
+    } // play : PlayList -> Number -> PlayList
 
   }, {
     key: "play",
-    value: function play() {
+    value: function play(songIdx) {
+      this.selectSong(songIdx);
       document.getElementById('audio').play();
       this.setState({
         playing: true
       });
-    } // selectSong : PlayList -> Number -> PlayList
+    } // pause : Playlist -> Playlist
+
+  }, {
+    key: "pause",
+    value: function pause() {
+      document.getElementById('audio').pause();
+      this.setState({
+        playing: false
+      });
+    } // selectSong : PlayList -> PlayList
 
   }, {
     key: "selectSong",
@@ -240,7 +251,6 @@ function (_React$Component2) {
         selectedSongIdx: songIdx
       });
       this.loadAudio(songIdx);
-      this.play();
     } // PlayList -> PlayList
 
   }, {
@@ -281,13 +291,20 @@ function (_React$Component2) {
           durationSecs: song.dataset.songDurationSecs,
           idx: idx,
           selectedIdx: _this3.state.selectedSongIdx,
-          onSelection: _this3.selectSong,
+          onSelection: _this3.play,
           title: song.dataset.songTitle
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "playList"
-      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "controls"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "sm1 m1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons",
+        onClick: this.pause
+      }, "pause_circle_outline")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
         id: "audio"
       }));
     }

@@ -6,7 +6,7 @@ import { confirmArrayFrom } from './util'
 
 function Root() {
     confirmArrayFrom()
-    const songs = document.querySelector('#playListData').children
+    const songs = Array.from(document.querySelector('#playListData').children)
 
     return (
         <PlayList songs={songs} />

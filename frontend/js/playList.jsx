@@ -14,10 +14,10 @@ class Song extends React.Component {
             className={klass}
             onClick={() => this.props.onSelection(this.props.idx)}
             >
-                <div className="sm9 m4">{this.props.title}</div>
-                <div className="sm3 m2">{durationClockFormat}</div>
-                <div className="sm6 m3">{this.props.artistTitle}</div>
-                <div className="sm6 m3">{this.props.albumTitle}</div>
+                <div className='sm9 m4'>{this.props.title}</div>
+                <div className='sm3 m2'>{durationClockFormat}</div>
+                <div className='sm6 m3'>{this.props.artistTitle}</div>
+                <div className='sm6 m3'>{this.props.albumTitle}</div>
             </li>
         )
     }
@@ -30,30 +30,36 @@ export default class PlayList extends React.Component {
         this.state = {
             playing: false
             , selectedSongIdx: -1
-            , songs: Array.from(this.props.songs)
+            , songs: this.props.songs
         }
 
         this.selectSong = this.selectSong.bind(this)
+        this.play = this.play.bind(this)
+        this.pause = this.pause.bind(this)
     }
 
     // countTracks : PlayList -> Number
     countTracks() {
-        const songs = this.state.songs
-
-        return songs.length
+        return this.state.songs.length
     }
 
-    // play : PlayList -> PlayList
-    play() {
+    // play : PlayList -> Number -> PlayList
+    play(songIdx) {
+        this.selectSong(songIdx)
         document.getElementById('audio').play()
         this.setState({playing: true})
     }
 
-    // selectSong : PlayList -> Number -> PlayList
+    // pause : Playlist -> Playlist
+    pause() {
+        document.getElementById('audio').pause()
+        this.setState({playing: false})
+    }
+
+    // selectSong : PlayList -> PlayList
     selectSong(songIdx) {
         this.setState({selectedSongIdx: songIdx})
         this.loadAudio(songIdx)
-        this.play()
     }
 
     // PlayList -> PlayList
@@ -91,17 +97,25 @@ export default class PlayList extends React.Component {
                 durationSecs={song.dataset.songDurationSecs}
                 idx={idx}
                 selectedIdx={this.state.selectedSongIdx}
-                onSelection={this.selectSong}
+                onSelection={this.play}
                 title={song.dataset.songTitle}
                 ></Song>
             )
         })
 
         return (
-            <ul className="playList">
+            <ul className='playList'>
                 {playList}
-                <li>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</li>
-                <audio id="audio"></audio>
+                <li className='controls'>
+                    <div className='sm1 m1'>
+                        <i
+                        className='material-icons'
+                        onClick={this.pause}>pause_circle_outline</i>
+                    </div>
+                    <div>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
+                </li>
+
+                <audio id='audio'></audio>
             </ul>
         )
     }
