@@ -175,6 +175,7 @@ function (_React$Component) {
       var _this = this;
 
       var klass = this.props.idx === this.props.selectedIdx ? 'active' : '';
+      var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.props.durationSecs);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: klass,
         onClick: function onClick() {
@@ -184,7 +185,7 @@ function (_React$Component) {
         className: "sm9 m4"
       }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm3 m2"
-      }, this.props.durationSecs), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, durationClockFormat), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
       }, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
@@ -207,37 +208,60 @@ function (_React$Component2) {
 
     _this2 = _possibleConstructorReturn(this, _getPrototypeOf(PlayList).call(this, props));
     _this2.state = {
+      playing: false,
       selectedSongIdx: -1,
-      songs: _this2.props.songs
+      songs: Array.from(_this2.props.songs)
     };
     _this2.selectSong = _this2.selectSong.bind(_assertThisInitialized(_this2));
     return _this2;
-  }
+  } // countTracks : PlayList -> Number
+
 
   _createClass(PlayList, [{
-    key: "selectSong",
-    value: function selectSong(idx) {
+    key: "countTracks",
+    value: function countTracks() {
+      var songs = this.state.songs;
+      return songs.length;
+    } // play : PlayList -> PlayList
+
+  }, {
+    key: "play",
+    value: function play() {
+      document.getElementById('audio').play();
       this.setState({
-        selectedSongIdx: idx
+        playing: true
       });
+    } // selectSong : PlayList -> Number -> PlayList
+
+  }, {
+    key: "selectSong",
+    value: function selectSong(songIdx) {
+      this.setState({
+        selectedSongIdx: songIdx
+      });
+      this.loadAudio(songIdx);
+      this.play();
+    } // PlayList -> PlayList
+
+  }, {
+    key: "loadAudio",
+    value: function loadAudio(songIdx) {
+      var audio = document.getElementById('audio');
+      var song = this.state.songs[songIdx];
+      audio.defaultPlaybackRate = 1.5;
+      audio.src = song.dataset.mp3Src;
     } // PlayList -> Number
 
   }, {
     key: "toSecs",
     value: function toSecs() {
-      var songs = Array.from(this.state.songs);
+      var songs = this.state.songs;
 
       var songDurationSecs = function songDurationSecs(secsSum, song) {
         return secsSum + parseInt(song.dataset.songDurationSecs);
       };
 
       return songs.reduce(songDurationSecs, 0);
-    }
-  }, {
-    key: "countTracks",
-    value: function countTracks() {
-      var songs = Array.from(this.state.songs);
-      return songs.length;
     } // render : Object -> Object
 
   }, {
@@ -245,10 +269,11 @@ function (_React$Component2) {
     value: function render() {
       var _this3 = this;
 
-      var playListTimeToEnglish = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
-      var playListTimeToClock = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
       var countTracks = this.countTracks();
-      var playList = Array.from(this.state.songs).map(function (song, idx) {
+      var playListTimeEnglishFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
+      var playListTimeClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
+      var songs = this.state.songs;
+      var playList = songs.map(function (song, idx) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Song, {
           key: idx,
           artistTitle: song.dataset.artistTitle,
@@ -262,7 +287,9 @@ function (_React$Component2) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "playList"
-      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time: ", playListTimeToEnglish, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time (Clock format): ", playListTimeToClock, " (", countTracks, " songs)"));
+      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+        id: "audio"
+      }));
     }
   }]);
 

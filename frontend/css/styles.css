@@ -16,7 +16,7 @@
   }
 }
 body {
-  background-color: #eee;
+  background-color: #ddd;
   font-family: 'Syncopate';
 }
 body main {
@@ -24,7 +24,7 @@ body main {
   max-width: 1280px;
 }
 body main .playList {
-  background-color: #66025c;
+  background-color: #34012f;
   box-shadow: 0 2px 2px 0 rgba(203, 190, 0, 0.14), 0 3px 1px -2px rgba(203, 190, 0, 0.12), 0 1px 5px 0 rgba(203, 190, 0, 0.2);
   border: 2px solid #efdf00;
   border-radius: 3px;
@@ -36,7 +36,7 @@ body main .playList {
 body main .playList li {
   align-items: center;
   border: 2px outset #cbbe00;
-  box-shadow: 0 0 0 1px #66025c inset, 1px 1px 3px 2px #66025c inset;
+  box-shadow: 0 0 0 1px #34012f inset, 1px 1px 3px 2px #34012f inset;
   box-sizing: border-box;
   cursor: pointer;
   justify-content: center;
@@ -55,20 +55,20 @@ body main .playList li:after {
 }
 body main .playList li:hover {
   background-color: #cbbe00;
-  border: 2px dashed #66025c;
-  color: #66025c;
-  text-shadow: -1px -1px #980389;
+  border: 2px dashed #34012f;
+  color: #34012f;
+  text-shadow: -1px -1px #66025c;
   transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li:hover:not(.active) {
   animation: border-dance 1s infinite linear;
-  background: linear-gradient(90deg, #66025c 50%, #cbbe00 50%), linear-gradient(90deg, #66025c 50%, #cbbe00 50%), linear-gradient(0deg, #66025c 50%, #cbbe00 50%), linear-gradient(0deg, #66025c 50%, #cbbe00 50%);
+  background: linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%);
   background-color: #cbbe00;
   background-position: left top, right bottom, left bottom, right   top;
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
   border: 2px solid #cbbe00;
-  color: #66025c;
+  color: #34012f;
 }
 body main .playList li div {
   box-sizing: border-box;
@@ -77,10 +77,10 @@ body main .playList li div {
 body main .playList li.active {
   background-color: #efdf00;
   border: 2px solid transparent;
-  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #66025c inset;
+  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #34012f inset;
   box-sizing: border-box;
-  color: #66025c;
-  text-shadow: -1px -1px #980389;
+  color: #34012f;
+  text-shadow: -1px -1px #66025c;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li.active:hover {

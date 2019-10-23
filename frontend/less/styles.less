@@ -15,11 +15,12 @@
 // Variables
 @font-family: 'Syncopate';
 
-// yellow primary-color
+// yellow primary-color #cbbe00
 @primary-color: #cbbe00;
 @primary-color-light: lighten(@primary-color, 7%);
-// purple secondary-color
-@secondary-color: #66025c;
+// purple secondary-color #66025c
+@secondary-color-base: #66025c;
+@secondary-color: darken(@secondary-color-base, 10%);
 @secondary-color-light: lighten(@secondary-color, 10%);
 
 // Keyframes
@@ -34,7 +35,7 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: #ddd;
     font-family: @font-family;
 
     main {
