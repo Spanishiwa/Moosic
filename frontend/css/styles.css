@@ -108,6 +108,11 @@ body main .playList li.controls .material-icons {
   box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #efdf00 inset;
   text-shadow: -1px -1px #66025c;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
 }
 body main .playList li.controls .material-icons:hover {
   background-color: #efdf00;
@@ -121,6 +126,13 @@ body main .playList li.controls .material-icons:hover {
 }
 body #playListData {
   display: none;
+}
+.no-text-select {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
 }
 .material-icons {
   font-family: 'Material Icons';
