@@ -234,8 +234,8 @@ function (_React$Component2) {
     } // PlayList -> PlayList
 
   }, {
-    key: "loadAudio",
-    value: function loadAudio(songIdx) {
+    key: "loadSong",
+    value: function loadSong(songIdx) {
       var audio = document.getElementById('audio');
       var song = this.state.songs[songIdx];
       audio.defaultPlaybackRate = 1.5;
@@ -251,6 +251,7 @@ function (_React$Component2) {
         this.selectSong(songIdx);
       }
 
+      this.resetSampleOver();
       document.getElementById('audio').play();
       this.setState({
         playing: true
@@ -264,6 +265,16 @@ function (_React$Component2) {
       this.setState({
         playing: false
       });
+    }
+  }, {
+    key: "playSampleOver",
+    value: function playSampleOver() {
+      var audioOver = document.getElementById('audioOver');
+      this.pause();
+      document.getElementById('audio').currentTime = 0;
+      audioOver.defaultPlaybackRate = 1.0;
+      audioOver.src = './frontend/sounds/30s-is-over.wav';
+      audioOver.play();
     } // selectSong : PlayList -> PlayList
 
   }, {
@@ -272,7 +283,7 @@ function (_React$Component2) {
       this.setState({
         selectedSongIdx: songIdx
       });
-      this.loadAudio(songIdx);
+      this.loadSong(songIdx);
     } // skipNext : PlayList -> PlayList
 
   }, {
@@ -304,6 +315,13 @@ function (_React$Component2) {
       };
 
       return songs.reduce(songDurationSecs, 0);
+    } // PlayList -> PlayList
+
+  }, {
+    key: "resetSampleOver",
+    value: function resetSampleOver() {
+      document.getElementById('audioOver').pause();
+      document.getElementById('audioOver').currentTime = 0;
     } // render : PlayList -> Object
 
   }, {
@@ -361,6 +379,8 @@ function (_React$Component2) {
         }
       }, "skip_next")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
         id: "audio"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+        id: "audioOver"
       }));
     }
   }]);

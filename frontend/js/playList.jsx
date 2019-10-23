@@ -45,7 +45,7 @@ export default class PlayList extends React.Component {
     }
 
     // PlayList -> PlayList
-    loadAudio(songIdx) {
+    loadSong(songIdx) {
         const audio = document.getElementById('audio')
         const song = this.state.songs[songIdx]
 
@@ -61,6 +61,8 @@ export default class PlayList extends React.Component {
             this.selectSong(songIdx)
         }
 
+        this.resetSampleOver()
+
         document.getElementById('audio').play()
         this.setState({playing: true})
     }
@@ -71,10 +73,22 @@ export default class PlayList extends React.Component {
         this.setState({playing: false})
     }
 
+    playSampleOver() {
+        const audioOver = document.getElementById('audioOver')
+
+        this.pause()
+        document.getElementById('audio').currentTime = 0
+
+        audioOver.defaultPlaybackRate = 1.0
+        audioOver.src = './frontend/sounds/30s-is-over.wav'
+        audioOver.play()
+
+    }
+
     // selectSong : PlayList -> PlayList
     selectSong(songIdx) {
         this.setState({selectedSongIdx: songIdx})
-        this.loadAudio(songIdx)
+        this.loadSong(songIdx)
     }
 
     // skipNext : PlayList -> PlayList
@@ -107,6 +121,12 @@ export default class PlayList extends React.Component {
         }
 
         return songs.reduce((songDurationSecs), 0)
+    }
+
+    // PlayList -> PlayList
+    resetSampleOver() {
+        document.getElementById('audioOver').pause()
+        document.getElementById('audioOver').currentTime = 0
     }
 
     // render : PlayList -> Object
@@ -149,6 +169,7 @@ export default class PlayList extends React.Component {
                     <div>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
                 </li>
                 <audio id='audio'></audio>
+                <audio id='audioOver'></audio>
             </ul>
         )
     }
