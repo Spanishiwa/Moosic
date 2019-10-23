@@ -80,3 +80,42 @@ export function confirmArrayFrom() {
       }())
     }
 }
+
+// secsToTime : Number -> Object
+export function secsToTime(totalSecs) {
+    const hrs = Math.floor(totalSecs / 3600)
+    const mins = Math.floor(totalSecs % 3600 / 60)
+    const secs = Math.floor(totalSecs % 3600 % 60)
+    const time = {
+        'hrs': hrs
+        , 'mins': mins
+        , 'secs': secs
+    }
+
+    return time
+}
+
+// secsToHrsMinsSecs : Number -> String
+export function secsToEnglish(totalSecs) {
+    const time = secsToTime(totalSecs)
+
+    const hrs = time.hrs > 1 ? `${time.hrs} hours`
+    : time.hrs === 1 ? `${time.hrs} hour` : ``
+    const mins = time.mins > 1 ? `${time.mins} minutes`
+    : time.mins === 1 ? `${time.mins} minute` : ``
+    const secs = time.secs > 1 ? `${time.secs} seconds`
+    : time.secs === 1 ? `${time.secs} second` : ``
+
+    return (`${hrs} ${mins} ${secs}`)
+}
+
+// secsToClockHrsMinsSecs : Number -> String
+export function secsToHrsMinsSecs(totalSecs) {
+    const time = secsToTime(totalSecs)
+
+    const hrs = time.hrs > 0 ? `${time.hrs}:` : ``
+    const mins = hrs && time.mins < 10 ? `0${time.mins}:` : `${time.mins}:`
+    const secs = time.secs < 10 ? `0${time.secs}` : `${time.secs}`
+
+    return (`${hrs}${mins}${secs}`)
+}

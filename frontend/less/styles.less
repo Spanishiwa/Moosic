@@ -17,9 +17,10 @@
 
 // yellow primary-color
 @primary-color: #cbbe00;
-
+@primary-color-light: lighten(@primary-color, 7%);
 // purple secondary-color
 @secondary-color: #66025c;
+@secondary-color-light: lighten(@secondary-color, 10%);
 
 // Keyframes
 @keyframes border-dance {
@@ -31,32 +32,33 @@
         background-position: left 15px top, right 15px bottom, left bottom 15px, right   top 15px;
     }
 }
+
 body {
     background-color: #eee;
     font-family: @font-family;
 
     main {
-        background-color: @secondary-color;
-        color: lighten(@primary-color, 7%);
         margin: auto;
         max-width: 1280px;
 
         .playList {
             border-radius: 3px;
+            background-color: @secondary-color;
+            box-shadow: 0 2px 2px 0 rgba(@primary-color,0.14), 0 3px 1px -2px rgba(@primary-color,0.12), 0 1px 5px 0 rgba(@primary-color,0.2);
+            border: 2px solid @primary-color-light;
+            border-radius: 3px;
+            color: @primary-color-light;
             height: 100%;
             margin: 0;
             padding: 0;
 
             li:extend(.row) {
                 align-items: center;
-                background-color: @secondary-color;
-                border: 2px solid transparent;
-                border-radius: 3px;
+                border: 2px outset @primary-color;
                 box-shadow: 0 0 0 1px @secondary-color inset, 1px 1px 3px 2px @secondary-color inset;
                 box-sizing: border-box;
                 cursor: pointer;
                 justify-content: center;
-                margin-bottom: 1px;
                 padding: 15px 10px 10px 10px;
                 transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
@@ -75,7 +77,7 @@ body {
                     background-color: @primary-color;
                     border: 2px dashed @secondary-color;
                     color: @secondary-color;
-                    text-shadow: -1px -1px lighten(@secondary-color, 10%);
+                    text-shadow: -1px -1px @secondary-color-light;
                     transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
                     &:not(.active) {
@@ -85,28 +87,25 @@ body {
                         background-position: left top, right bottom, left bottom, right   top;
                         background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
                         background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
-                        border: 2px solid @secondary-color;
+                        border: 2px solid @primary-color;
                         color: @secondary-color;
                     }
                 }
 
                 div {
                     box-sizing: border-box;
-                    flex: 0 0 auto;
-                    flex-basis: 50%;
-                    max-width: 50%;
                     -webkit-box-sizing: border-box;
                 }
             }
 
 
             li.active {
-                background-color: lighten(@primary-color, 7%);
+                background-color: @primary-color-light;
                 border: 2px solid transparent;
-                box-shadow: 0 0 0 1px lighten(@primary-color, 7%) inset, 1px 1px 3px 2px @secondary-color inset;
+                box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @secondary-color inset;
                 box-sizing: border-box;
                 color: @secondary-color;
-                text-shadow: -1px -1px lighten(@secondary-color, 10%);
+                text-shadow: -1px -1px @secondary-color-light;
                 transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
                 &:hover {
@@ -166,11 +165,11 @@ html {
 }
 
 // media queries
-@media screen and (min-width: 601px) {
+@media only screen and (min-width: 601px) {
     body {
         main {
             .playList {
-                li {
+                li:extend(.row) {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;

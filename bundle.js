@@ -134,6 +134,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ "./frontend/js/util.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -151,6 +152,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -182,7 +184,7 @@ function (_React$Component) {
         className: "sm9 m4"
       }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm3 m2"
-      }, this.props.durationSeconds), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.durationSecs), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
       }, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
@@ -218,6 +220,24 @@ function (_React$Component2) {
       this.setState({
         selectedSongIdx: idx
       });
+    } // PlayList -> Number
+
+  }, {
+    key: "toSecs",
+    value: function toSecs() {
+      var songs = Array.from(this.state.songs);
+
+      var songDurationSecs = function songDurationSecs(secsSum, song) {
+        return secsSum + parseInt(song.dataset.songDurationSecs);
+      };
+
+      return songs.reduce(songDurationSecs, 0);
+    }
+  }, {
+    key: "countTracks",
+    value: function countTracks() {
+      var songs = Array.from(this.state.songs);
+      return songs.length;
     } // render : Object -> Object
 
   }, {
@@ -225,12 +245,15 @@ function (_React$Component2) {
     value: function render() {
       var _this3 = this;
 
+      var playListTimeToEnglish = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
+      var playListTimeToClock = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
+      var countTracks = this.countTracks();
       var playList = Array.from(this.state.songs).map(function (song, idx) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Song, {
           key: idx,
           artistTitle: song.dataset.artistTitle,
           albumTitle: song.dataset.albumTitle,
-          durationSeconds: song.dataset.songDurationSeconds,
+          durationSecs: song.dataset.songDurationSecs,
           idx: idx,
           selectedIdx: _this3.state.selectedSongIdx,
           onSelection: _this3.selectSong,
@@ -239,7 +262,7 @@ function (_React$Component2) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "playList"
-      }, playList);
+      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time: ", playListTimeToEnglish, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Playlist Total Time (Clock format): ", playListTimeToClock, " (", countTracks, " songs)"));
     }
   }]);
 
@@ -254,12 +277,15 @@ function (_React$Component2) {
 /*!******************************!*\
   !*** ./frontend/js/util.jsx ***!
   \******************************/
-/*! exports provided: confirmArrayFrom */
+/*! exports provided: confirmArrayFrom, secsToTime, secsToEnglish, secsToHrsMinsSecs */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirmArrayFrom", function() { return confirmArrayFrom; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secsToTime", function() { return secsToTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secsToEnglish", function() { return secsToEnglish; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secsToHrsMinsSecs", function() { return secsToHrsMinsSecs; });
 // Production steps of ECMA-262, Edition 6, 22.1.2.1 copied from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 // manually import for IE support
 function confirmArrayFrom() {
@@ -354,6 +380,34 @@ function confirmArrayFrom() {
       };
     }();
   }
+} // secsToTime : Number -> Object
+
+function secsToTime(totalSecs) {
+  var hrs = Math.floor(totalSecs / 3600);
+  var mins = Math.floor(totalSecs % 3600 / 60);
+  var secs = Math.floor(totalSecs % 3600 % 60);
+  var time = {
+    'hrs': hrs,
+    'mins': mins,
+    'secs': secs
+  };
+  return time;
+} // secsToHrsMinsSecs : Number -> String
+
+function secsToEnglish(totalSecs) {
+  var time = secsToTime(totalSecs);
+  var hrs = time.hrs > 1 ? "".concat(time.hrs, " hours") : time.hrs === 1 ? "".concat(time.hrs, " hour") : "";
+  var mins = time.mins > 1 ? "".concat(time.mins, " minutes") : time.mins === 1 ? "".concat(time.mins, " minute") : "";
+  var secs = time.secs > 1 ? "".concat(time.secs, " seconds") : time.secs === 1 ? "".concat(time.secs, " second") : "";
+  return "".concat(hrs, " ").concat(mins, " ").concat(secs);
+} // secsToClockHrsMinsSecs : Number -> String
+
+function secsToHrsMinsSecs(totalSecs) {
+  var time = secsToTime(totalSecs);
+  var hrs = time.hrs > 0 ? "".concat(time.hrs, ":") : "";
+  var mins = hrs && time.mins < 10 ? "0".concat(time.mins, ":") : "".concat(time.mins, ":");
+  var secs = time.secs < 10 ? "0".concat(time.secs) : "".concat(time.secs);
+  return "".concat(hrs).concat(mins).concat(secs);
 }
 
 /***/ }),

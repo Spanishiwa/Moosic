@@ -20,27 +20,26 @@ body {
   font-family: 'Syncopate';
 }
 body main {
-  background-color: #66025c;
-  color: #efdf00;
   margin: auto;
   max-width: 1280px;
 }
 body main .playList {
+  background-color: #66025c;
+  box-shadow: 0 2px 2px 0 rgba(203, 190, 0, 0.14), 0 3px 1px -2px rgba(203, 190, 0, 0.12), 0 1px 5px 0 rgba(203, 190, 0, 0.2);
+  border: 2px solid #efdf00;
   border-radius: 3px;
+  color: #efdf00;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 body main .playList li {
   align-items: center;
-  background-color: #66025c;
-  border: 2px solid transparent;
-  border-radius: 3px;
+  border: 2px outset #cbbe00;
   box-shadow: 0 0 0 1px #66025c inset, 1px 1px 3px 2px #66025c inset;
   box-sizing: border-box;
   cursor: pointer;
   justify-content: center;
-  margin-bottom: 1px;
   padding: 15px 10px 10px 10px;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
@@ -68,14 +67,11 @@ body main .playList li:hover:not(.active) {
   background-position: left top, right bottom, left bottom, right   top;
   background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
   background-size: 15px 4px, 15px 3px, 4px 15px, 3px 15px;
-  border: 2px solid #66025c;
+  border: 2px solid #cbbe00;
   color: #66025c;
 }
 body main .playList li div {
   box-sizing: border-box;
-  flex: 0 0 auto;
-  flex-basis: 50%;
-  max-width: 50%;
   -webkit-box-sizing: border-box;
 }
 body main .playList li.active {
@@ -128,7 +124,7 @@ html {
   opacity: 1;
   visibility: visible;
 }
-@media screen and (min-width: 601px) {
+@media only screen and (min-width: 601px) {
   body main .playList li {
     display: flex;
     flex-direction: row;
