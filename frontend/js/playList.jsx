@@ -35,6 +35,8 @@ export default class PlayList extends React.Component {
         this.selectSong = this.selectSong.bind(this)
         this.play = this.play.bind(this)
         this.pause = this.pause.bind(this)
+        this.skipNext = this.skipNext.bind(this)
+        this.skipPrevious = this.skipPrevious.bind(this)
     }
 
     // countTracks : PlayList -> Number
@@ -42,11 +44,23 @@ export default class PlayList extends React.Component {
         return this.state.songs.length
     }
 
+    // PlayList -> PlayList
+    loadAudio(songIdx) {
+        const audio = document.getElementById('audio')
+        const song = this.state.songs[songIdx]
+
+        audio.defaultPlaybackRate = 1.5
+        audio.src = song.dataset.mp3Src
+    }
+
     // play : PlayList -> Number -> PlayList
     play(songIdx) {
         songIdx = songIdx === -1 ? 0 : songIdx
 
-        this.selectSong(songIdx)
+        if (songIdx !== this.state.selectedSongIdx) {
+            this.selectSong(songIdx)
+        }
+
         document.getElementById('audio').play()
         this.setState({playing: true})
     }
@@ -63,13 +77,26 @@ export default class PlayList extends React.Component {
         this.loadAudio(songIdx)
     }
 
-    // PlayList -> PlayList
-    loadAudio(songIdx) {
-        const audio = document.getElementById('audio')
-        const song = this.state.songs[songIdx]
+    // skipNext : PlayList -> PlayList
+    skipNext() {
+        const { selectedSongIdx } = this.state
+        const isAtLoopPoint = selectedSongIdx >= this.countTracks() - 1 ||
+        selectedSongIdx < 0
 
-        audio.defaultPlaybackRate = 1.5
-        audio.src = song.dataset.mp3Src
+        const songIdx = isAtLoopPoint ? 0 : (selectedSongIdx + 1)
+
+        this.selectSong(songIdx)
+        this.play(songIdx)
+    }
+
+    // skipPrevious : PlayList -> PlayList
+    skipPrevious() {
+        const { selectedSongIdx } = this.state
+        const songIdx = selectedSongIdx < 1 ? (this.countTracks() - 1)
+        : selectedSongIdx -1
+
+        this.selectSong(songIdx)
+        this.play(songIdx)
     }
 
     // PlayList -> Number
@@ -88,6 +115,8 @@ export default class PlayList extends React.Component {
         const playListTimeEnglishFormat = secsToEnglish(this.toSecs())
         const playListTimeClockFormat = secsToHrsMinsSecs(this.toSecs())
         const { playing, selectedSongIdx, songs } = this.state
+        const playOnClick = playing ? () => this.pause()
+        : () => this.play(selectedSongIdx)
 
         const playList = songs.map((song, idx) => {
             const { artistTitle, albumTitle, songDurationSecs, songTitle } = song.dataset
@@ -110,11 +139,15 @@ export default class PlayList extends React.Component {
                 {playList}
                 <li className='controls'>
                     <div className='sm1 m1'>
-                        <i className='material-icons' onClick={playing ? () => this.pause() : () => this.play(selectedSongIdx)}>{playing ? 'pause_circle_outline' : 'play_circle_outline'}</i>
+                        <i className='material-icons'
+                        onClick={() => this.skipPrevious()}>skip_previous</i>
+                        <i className='material-icons' onClick={playOnClick}>
+                        {playing ? 'pause_circle_filled' : 'play_arrow'}</i>
+                        <i className='material-icons'
+                        onClick={() => this.skipNext()}>skip_next</i>
                     </div>
                     <div>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
                 </li>
-
                 <audio id='audio'></audio>
             </ul>
         )

@@ -103,15 +103,15 @@ body main .playList li.active:hover {
   border: 2px outset #cbbe00;
 }
 body main .playList li.controls .material-icons {
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: 50%;
-  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #34012f inset;
+  box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #efdf00 inset;
   text-shadow: -1px -1px #66025c;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 body main .playList li.controls .material-icons:hover {
   background-color: #efdf00;
-  border: 1px inset #34012f;
+  border: 2px inset #34012f;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #34012f inset;
   box-sizing: border-box;
