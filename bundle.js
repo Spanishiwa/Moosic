@@ -172,24 +172,30 @@ function (_React$Component) {
     key: "render",
     // render : PlayList -> Object
     value: function render() {
-      var _this = this;
-
-      var klass = this.props.idx === this.props.selectedIdx ? 'active' : '';
-      var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.props.durationSecs);
+      var _this$props = this.props,
+          albumTitle = _this$props.albumTitle,
+          artistTitle = _this$props.artistTitle,
+          durationSecs = _this$props.durationSecs,
+          idx = _this$props.idx,
+          onSelection = _this$props.onSelection,
+          selectedIdx = _this$props.selectedIdx,
+          title = _this$props.title;
+      var klass = idx === selectedIdx ? 'active' : '';
+      var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(durationSecs);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: klass,
         onClick: function onClick() {
-          return _this.props.onSelection(_this.props.idx);
+          return onSelection(idx);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm9 m4"
-      }, this.props.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm3 m2"
       }, durationClockFormat), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
-      }, this.props.artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "sm6 m3"
-      }, this.props.albumTitle));
+      }, albumTitle));
     }
   }]);
 
@@ -202,20 +208,20 @@ function (_React$Component2) {
   _inherits(PlayList, _React$Component2);
 
   function PlayList(props) {
-    var _this2;
+    var _this;
 
     _classCallCheck(this, PlayList);
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(PlayList).call(this, props));
-    _this2.state = {
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PlayList).call(this, props));
+    _this.state = {
       playing: false,
       selectedSongIdx: -1,
-      songs: _this2.props.songs
+      songs: _this.props.songs
     };
-    _this2.selectSong = _this2.selectSong.bind(_assertThisInitialized(_this2));
-    _this2.play = _this2.play.bind(_assertThisInitialized(_this2));
-    _this2.pause = _this2.pause.bind(_assertThisInitialized(_this2));
-    return _this2;
+    _this.selectSong = _this.selectSong.bind(_assertThisInitialized(_this));
+    _this.play = _this.play.bind(_assertThisInitialized(_this));
+    _this.pause = _this.pause.bind(_assertThisInitialized(_this));
+    return _this;
   } // countTracks : PlayList -> Number
 
 
@@ -228,6 +234,7 @@ function (_React$Component2) {
   }, {
     key: "play",
     value: function play(songIdx) {
+      songIdx = songIdx === -1 ? 0 : songIdx;
       this.selectSong(songIdx);
       document.getElementById('audio').play();
       this.setState({
@@ -272,27 +279,35 @@ function (_React$Component2) {
       };
 
       return songs.reduce(songDurationSecs, 0);
-    } // render : Object -> Object
+    } // render : PlayList -> Object
 
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var countTracks = this.countTracks();
       var playListTimeEnglishFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
       var playListTimeClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
-      var songs = this.state.songs;
+      var _this$state = this.state,
+          playing = _this$state.playing,
+          selectedSongIdx = _this$state.selectedSongIdx,
+          songs = _this$state.songs;
       var playList = songs.map(function (song, idx) {
+        var _song$dataset = song.dataset,
+            artistTitle = _song$dataset.artistTitle,
+            albumTitle = _song$dataset.albumTitle,
+            songDurationSecs = _song$dataset.songDurationSecs,
+            songTitle = _song$dataset.songTitle;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Song, {
           key: idx,
-          artistTitle: song.dataset.artistTitle,
-          albumTitle: song.dataset.albumTitle,
-          durationSecs: song.dataset.songDurationSecs,
+          artistTitle: artistTitle,
+          albumTitle: albumTitle,
+          durationSecs: songDurationSecs,
           idx: idx,
-          selectedIdx: _this3.state.selectedSongIdx,
-          onSelection: _this3.play,
-          title: song.dataset.songTitle
+          selectedIdx: selectedSongIdx,
+          onSelection: _this2.play,
+          title: songTitle
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -303,8 +318,12 @@ function (_React$Component2) {
         className: "sm1 m1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons",
-        onClick: this.pause
-      }, "pause_circle_outline")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+        onClick: playing ? function () {
+          return _this2.pause();
+        } : function () {
+          return _this2.play(selectedSongIdx);
+        }
+      }, playing ? 'pause_circle_outline' : 'play_circle_outline')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
         id: "audio"
       }));
     }
@@ -430,28 +449,35 @@ function secsToTime(totalSecs) {
   var hrs = Math.floor(totalSecs / 3600);
   var mins = Math.floor(totalSecs % 3600 / 60);
   var secs = Math.floor(totalSecs % 3600 % 60);
-  var time = {
+  return {
     'hrs': hrs,
     'mins': mins,
     'secs': secs
   };
-  return time;
 } // secsToHrsMinsSecs : Number -> String
 
 function secsToEnglish(totalSecs) {
-  var time = secsToTime(totalSecs);
-  var hrs = time.hrs > 1 ? "".concat(time.hrs, " hours") : time.hrs === 1 ? "".concat(time.hrs, " hour") : "";
-  var mins = time.mins > 1 ? "".concat(time.mins, " minutes") : time.mins === 1 ? "".concat(time.mins, " minute") : "";
-  var secs = time.secs > 1 ? "".concat(time.secs, " seconds") : time.secs === 1 ? "".concat(time.secs, " second") : "";
-  return "".concat(hrs, " ").concat(mins, " ").concat(secs);
+  var _secsToTime = secsToTime(totalSecs),
+      hrs = _secsToTime.hrs,
+      mins = _secsToTime.mins,
+      secs = _secsToTime.secs;
+
+  var h = hrs > 1 ? "".concat(hrs, " hours") : hrs === 1 ? "".concat(hrs, " hour") : "";
+  var m = mins > 1 ? "".concat(mins, " minutes") : mins === 1 ? "".concat(mins, " minute") : "";
+  var s = secs > 1 ? "".concat(secs, " seconds") : secs === 1 ? "".concat(secs, " second") : "";
+  return "".concat(h, " ").concat(m, " ").concat(s);
 } // secsToClockHrsMinsSecs : Number -> String
 
 function secsToHrsMinsSecs(totalSecs) {
-  var time = secsToTime(totalSecs);
-  var hrs = time.hrs > 0 ? "".concat(time.hrs, ":") : "";
-  var mins = hrs && time.mins < 10 ? "0".concat(time.mins, ":") : "".concat(time.mins, ":");
-  var secs = time.secs < 10 ? "0".concat(time.secs) : "".concat(time.secs);
-  return "".concat(hrs).concat(mins).concat(secs);
+  var _secsToTime2 = secsToTime(totalSecs),
+      hrs = _secsToTime2.hrs,
+      mins = _secsToTime2.mins,
+      secs = _secsToTime2.secs;
+
+  var h = hrs > 0 ? "".concat(hrs, ":") : "";
+  var m = hrs && mins < 10 ? "0".concat(mins, ":") : "".concat(mins, ":");
+  var s = secs < 10 ? "0".concat(secs) : "".concat(secs);
+  return "".concat(h).concat(m).concat(s);
 }
 
 /***/ }),

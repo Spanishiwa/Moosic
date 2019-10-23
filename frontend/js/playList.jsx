@@ -6,18 +6,17 @@ import { secsToEnglish, secsToHrsMinsSecs } from './util'
 class Song extends React.Component {
     // render : PlayList -> Object
     render () {
-        const klass = this.props.idx === this.props.selectedIdx ? 'active' : ''
-        const durationClockFormat = secsToHrsMinsSecs(this.props.durationSecs)
+        const { albumTitle, artistTitle, durationSecs, idx
+        , onSelection, selectedIdx, title } = this.props
+        const klass = idx === selectedIdx ? 'active' : ''
+        const durationClockFormat = secsToHrsMinsSecs(durationSecs)
 
         return (
-            <li
-            className={klass}
-            onClick={() => this.props.onSelection(this.props.idx)}
-            >
-                <div className='sm9 m4'>{this.props.title}</div>
+            <li className={klass} onClick={() => onSelection(idx)}>
+                <div className='sm9 m4'>{title}</div>
                 <div className='sm3 m2'>{durationClockFormat}</div>
-                <div className='sm6 m3'>{this.props.artistTitle}</div>
-                <div className='sm6 m3'>{this.props.albumTitle}</div>
+                <div className='sm6 m3'>{artistTitle}</div>
+                <div className='sm6 m3'>{albumTitle}</div>
             </li>
         )
     }
@@ -45,6 +44,8 @@ export default class PlayList extends React.Component {
 
     // play : PlayList -> Number -> PlayList
     play(songIdx) {
+        songIdx = songIdx === -1 ? 0 : songIdx
+
         this.selectSong(songIdx)
         document.getElementById('audio').play()
         this.setState({playing: true})
@@ -81,24 +82,25 @@ export default class PlayList extends React.Component {
         return songs.reduce((songDurationSecs), 0)
     }
 
-    // render : Object -> Object
+    // render : PlayList -> Object
     render() {
         const countTracks = this.countTracks()
         const playListTimeEnglishFormat = secsToEnglish(this.toSecs())
         const playListTimeClockFormat = secsToHrsMinsSecs(this.toSecs())
-        const songs = this.state.songs
+        const { playing, selectedSongIdx, songs } = this.state
 
         const playList = songs.map((song, idx) => {
+            const { artistTitle, albumTitle, songDurationSecs, songTitle } = song.dataset
             return (
                 <Song
                 key={idx}
-                artistTitle={song.dataset.artistTitle}
-                albumTitle={song.dataset.albumTitle}
-                durationSecs={song.dataset.songDurationSecs}
+                artistTitle={artistTitle}
+                albumTitle={albumTitle}
+                durationSecs={songDurationSecs}
                 idx={idx}
-                selectedIdx={this.state.selectedSongIdx}
+                selectedIdx={selectedSongIdx}
                 onSelection={this.play}
-                title={song.dataset.songTitle}
+                title={songTitle}
                 ></Song>
             )
         })
@@ -108,9 +110,7 @@ export default class PlayList extends React.Component {
                 {playList}
                 <li className='controls'>
                     <div className='sm1 m1'>
-                        <i
-                        className='material-icons'
-                        onClick={this.pause}>pause_circle_outline</i>
+                        <i className='material-icons' onClick={playing ? () => this.pause() : () => this.play(selectedSongIdx)}>{playing ? 'pause_circle_outline' : 'play_circle_outline'}</i>
                     </div>
                     <div>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
                 </li>
