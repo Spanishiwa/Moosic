@@ -524,7 +524,7 @@ function (_React$Component2) {
         className: "playList-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "songTitle"
-      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Track Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "artistTitle"
       }, "Artist"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "albumTitle"

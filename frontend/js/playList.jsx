@@ -215,7 +215,7 @@ export default class PlayList extends React.Component {
         return (
             <ul className='playList'>
                 <li className='playList-header'>
-                    <div className='songTitle'>Title</div>
+                    <div className='songTitle'>Track Title</div>
                     <div className='artistTitle'>Artist</div>
                     <div className='albumTitle'>Album</div>
                     <div className='songDuration'>Length</div>
