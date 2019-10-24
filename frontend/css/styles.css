@@ -201,7 +201,7 @@ html {
     padding: 0px;
   }
   body main .contactUs ul.formWrapper li {
-    align-items: flex-start;
+    align-items: baseline;
     display: flex;
     flex-wrap: wrap;
     margin: 20px 0px;
@@ -335,7 +335,7 @@ html {
     padding: 0px;
   }
   body main .contactUs ul.formWrapper li {
-    align-items: flex-start;
+    align-items: baseline;
     display: flex;
     flex-wrap: wrap;
     margin: 20px 0px;
