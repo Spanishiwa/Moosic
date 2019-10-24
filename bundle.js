@@ -108,10 +108,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Root() {
   Object(_util__WEBPACK_IMPORTED_MODULE_3__["confirmArrayFrom"])();
-  var songs = Array.from(document.querySelector('#playListData').children);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_playList__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    songs: songs
-  });
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_playList__WEBPACK_IMPORTED_MODULE_2__["default"], null);
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -214,15 +211,19 @@ function (_React$Component2) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PlayList).call(this, props));
     _this.state = {
+      elapsedTime: 0,
+      intervalId: [],
       playing: false,
       selectedSongIdx: -1,
-      songs: _this.props.songs
+      songs: [],
+      startTime: 0
     };
-    _this.selectSong = _this.selectSong.bind(_assertThisInitialized(_this));
-    _this.play = _this.play.bind(_assertThisInitialized(_this));
     _this.pause = _this.pause.bind(_assertThisInitialized(_this));
+    _this.play = _this.play.bind(_assertThisInitialized(_this));
+    _this.selectSong = _this.selectSong.bind(_assertThisInitialized(_this));
     _this.skipNext = _this.skipNext.bind(_assertThisInitialized(_this));
     _this.skipPrevious = _this.skipPrevious.bind(_assertThisInitialized(_this));
+    _this.tick = _this.tick.bind(_assertThisInitialized(_this));
     return _this;
   } // countTracks : PlayList -> Number
 
@@ -231,7 +232,25 @@ function (_React$Component2) {
     key: "countTracks",
     value: function countTracks() {
       return this.state.songs.length;
-    } // PlayList -> PlayList
+    } // componentDidMount : PlayList -> PlayList
+
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var songs = Array.from(document.querySelector('#playListData').children);
+      this.setState({
+        songs: songs
+      });
+      this.loadSampleOver();
+    } // loadSampleOver : Playlist -> Playlist
+
+  }, {
+    key: "loadSampleOver",
+    value: function loadSampleOver() {
+      var audioOver = document.getElementById('audioOver');
+      audioOver.defaultPlaybackRate = 1.0;
+      audioOver.src = './frontend/sounds/30s-is-over.wav';
+    } // loadSong: PlayList -> Number -> PlayList
 
   }, {
     key: "loadSong",
@@ -246,9 +265,13 @@ function (_React$Component2) {
     key: "play",
     value: function play(songIdx) {
       songIdx = songIdx === -1 ? 0 : songIdx;
+      var _this$state = this.state,
+          selectedSongIdx = _this$state.selectedSongIdx,
+          elapsedTime = _this$state.elapsedTime;
 
-      if (songIdx !== this.state.selectedSongIdx) {
+      if (songIdx !== selectedSongIdx || elapsedTime > 27500) {
         this.selectSong(songIdx);
+        this.startTimer();
       }
 
       this.resetSampleOver();
@@ -261,20 +284,23 @@ function (_React$Component2) {
   }, {
     key: "pause",
     value: function pause() {
-      document.getElementById('audio').pause();
+      var audio = document.getElementById('audio');
+      audio.pause();
       this.setState({
         playing: false
       });
     }
   }, {
-    key: "playSampleOver",
-    value: function playSampleOver() {
-      var audioOver = document.getElementById('audioOver');
-      this.pause();
+    key: "resetSong",
+    value: function resetSong() {
       document.getElementById('audio').currentTime = 0;
-      audioOver.defaultPlaybackRate = 1.0;
-      audioOver.src = './frontend/sounds/30s-is-over.wav';
-      audioOver.play();
+    }
+  }, {
+    key: "sampleOver",
+    value: function sampleOver() {
+      this.pause();
+      this.resetSong();
+      document.getElementById('audioOver').play();
     } // selectSong : PlayList -> PlayList
 
   }, {
@@ -303,6 +329,45 @@ function (_React$Component2) {
       var songIdx = selectedSongIdx < 1 ? this.countTracks() - 1 : selectedSongIdx - 1;
       this.selectSong(songIdx);
       this.play(songIdx);
+    } // startTimer : PlayList -> PlayList
+
+  }, {
+    key: "startTimer",
+    value: function startTimer() {
+      clearInterval(this.state.intervalId);
+      this.setState({
+        intervalId: setInterval(this.tick, 2000),
+        startTime: this.timeNow()
+      });
+    } // tick : PlayList -> PlayList
+
+  }, {
+    key: "tick",
+    value: function tick() {
+      var elapsedTime = this.timeNow() - this.state.startTime;
+
+      if (elapsedTime > 29999) {
+        console.log('30s passed');
+        clearInterval(this.state.intervalId);
+        this.sampleOver();
+      } else {
+        if (!this.state.playing) {
+          var pausedTime = elapsedTime - this.state.elapsedTime;
+          this.setState({
+            startTime: this.state.startTime + pausedTime
+          });
+        } else {
+          this.setState({
+            elapsedTime: elapsedTime
+          });
+        }
+      }
+    } // timeNow : PlayList -> PlayList
+
+  }, {
+    key: "timeNow",
+    value: function timeNow() {
+      return new Date().getTime();
     } // PlayList -> Number
 
   }, {
@@ -315,7 +380,7 @@ function (_React$Component2) {
       };
 
       return songs.reduce(songDurationSecs, 0);
-    } // PlayList -> PlayList
+    } // resetSampleOver : PlayList -> PlayList
 
   }, {
     key: "resetSampleOver",
@@ -332,10 +397,10 @@ function (_React$Component2) {
       var countTracks = this.countTracks();
       var playListTimeEnglishFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
       var playListTimeClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
-      var _this$state = this.state,
-          playing = _this$state.playing,
-          selectedSongIdx = _this$state.selectedSongIdx,
-          songs = _this$state.songs;
+      var _this$state2 = this.state,
+          playing = _this$state2.playing,
+          selectedSongIdx = _this$state2.selectedSongIdx,
+          songs = _this$state2.songs;
       var playOnClick = playing ? function () {
         return _this2.pause();
       } : function () {

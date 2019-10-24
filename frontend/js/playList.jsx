@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { secsToEnglish, secsToHrsMinsSecs } from './util'
 
 
+
 class Song extends React.Component {
     // render : PlayList -> Object
     render () {
@@ -27,16 +28,20 @@ export default class PlayList extends React.Component {
         super(props)
 
         this.state = {
-            playing: false
+            elapsedTime: 0
+            , intervalId: []
+            , playing: false
             , selectedSongIdx: -1
-            , songs: this.props.songs
+            , songs: []
+            , startTime: 0
         }
 
-        this.selectSong = this.selectSong.bind(this)
-        this.play = this.play.bind(this)
         this.pause = this.pause.bind(this)
+        this.play = this.play.bind(this)
+        this.selectSong = this.selectSong.bind(this)
         this.skipNext = this.skipNext.bind(this)
         this.skipPrevious = this.skipPrevious.bind(this)
+        this.tick = this.tick.bind(this)
     }
 
     // countTracks : PlayList -> Number
@@ -44,7 +49,23 @@ export default class PlayList extends React.Component {
         return this.state.songs.length
     }
 
-    // PlayList -> PlayList
+    // componentDidMount : PlayList -> PlayList
+    componentDidMount() {
+        const songs = Array.from(document.querySelector('#playListData').children)
+        this.setState({songs: songs})
+
+        this.loadSampleOver()
+    }
+
+    // loadSampleOver : Playlist -> Playlist
+    loadSampleOver() {
+        const audioOver = document.getElementById('audioOver')
+
+        audioOver.defaultPlaybackRate = 1.0
+        audioOver.src = './frontend/sounds/30s-is-over.wav'
+    }
+
+    // loadSong: PlayList -> Number -> PlayList
     loadSong(songIdx) {
         const audio = document.getElementById('audio')
         const song = this.state.songs[songIdx]
@@ -56,9 +77,11 @@ export default class PlayList extends React.Component {
     // play : PlayList -> Number -> PlayList
     play(songIdx) {
         songIdx = songIdx === -1 ? 0 : songIdx
+        const { selectedSongIdx, elapsedTime } = this.state
 
-        if (songIdx !== this.state.selectedSongIdx) {
+        if (songIdx !== selectedSongIdx || elapsedTime > 27500) {
             this.selectSong(songIdx)
+            this.startTimer()
         }
 
         this.resetSampleOver()
@@ -69,19 +92,20 @@ export default class PlayList extends React.Component {
 
     // pause : Playlist -> Playlist
     pause() {
-        document.getElementById('audio').pause()
+        const audio = document.getElementById('audio')
+        audio.pause()
+
         this.setState({playing: false})
     }
 
-    playSampleOver() {
-        const audioOver = document.getElementById('audioOver')
-
-        this.pause()
+    resetSong() {
         document.getElementById('audio').currentTime = 0
+    }
 
-        audioOver.defaultPlaybackRate = 1.0
-        audioOver.src = './frontend/sounds/30s-is-over.wav'
-        audioOver.play()
+    sampleOver() {
+        this.pause()
+        this.resetSong()
+        document.getElementById('audioOver').play()
 
     }
 
@@ -113,6 +137,40 @@ export default class PlayList extends React.Component {
         this.play(songIdx)
     }
 
+    // startTimer : PlayList -> PlayList
+    startTimer() {
+        clearInterval(this.state.intervalId)
+
+        this.setState({
+            intervalId: setInterval(this.tick, 2000)
+            , startTime: this.timeNow()
+        })
+    }
+
+    // tick : PlayList -> PlayList
+    tick() {
+        const elapsedTime = this.timeNow() - this.state.startTime
+
+        if (elapsedTime > 29999) {
+            console.log('30s passed');
+            clearInterval(this.state.intervalId)
+            this.sampleOver();
+        } else {
+            if (!this.state.playing) {
+                const pausedTime = elapsedTime - this.state.elapsedTime
+                this.setState({startTime: this.state.startTime + pausedTime})
+            } else {
+                this.setState({elapsedTime: elapsedTime})
+            }
+        }
+
+    }
+
+    // timeNow : PlayList -> PlayList
+    timeNow() {
+        return (new Date()).getTime()
+    }
+
     // PlayList -> Number
     toSecs() {
         const songs = this.state.songs
@@ -123,7 +181,7 @@ export default class PlayList extends React.Component {
         return songs.reduce((songDurationSecs), 0)
     }
 
-    // PlayList -> PlayList
+    // resetSampleOver : PlayList -> PlayList
     resetSampleOver() {
         document.getElementById('audioOver').pause()
         document.getElementById('audioOver').currentTime = 0
