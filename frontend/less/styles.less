@@ -234,6 +234,65 @@ html {
 @media only screen and (max-width: 719px) {
     body {
         main {
+            .contactUs {
+                border-radius: 3px;
+                border: 2px solid @secondary-color;
+                border-radius: 3px;
+                box-shadow: 0 2px 2px 0 rgba(@secondary-color,0.14), 0 3px 1px -2px rgba(@secondary-color,0.12), 0 1px 5px 0 rgba(@secondary-color,0.2);
+                font-size: 15px;
+                max-width: 300px;
+                margin: 20px auto auto auto;
+                padding: 0px 20px 0px 20px;
+
+                h3 {
+                    text-align: center;
+                }
+
+                p {
+                    text-align: left;
+                }
+
+                ul.formWrapper {
+                    list-style-type: none;
+                    padding: 0px;
+
+                    li {
+                        align-items: flex-start;
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin: 20px 0px;
+
+                        label {
+                            margin-bottom: 10px;
+                        }
+
+                        label, input, textarea {
+                            flex: 1 0 220px;
+                            margin-left: auto;
+                        }
+                    }
+
+                    #formSubmit {
+                        background: @secondary-color;
+                        border: none;
+                        border-radius: 2px;
+                        cursor: pointer;
+                        color: #f2f2f2;
+                        margin-left: auto;
+                        margin-top: 10px;
+                        max-width: 355px;
+                        padding: 8px 16px;
+                        text-transform: uppercase;
+                        transition: color 0.3s ease-in-out;
+
+                        &:hover {
+                            color: @primary-color-light;
+                            transition: color 0.3s ease-in-out;
+                        }
+                    }
+                }
+            }
+
             .playList {
                 .trackList {
                     max-height: 435px;
@@ -273,23 +332,27 @@ html {
                     .albumTitle {
                         flex: 0 1 20%;
                         text-align: center;
+                        font-size: 13px;
                     }
 
                     .artistTitle {
                         flex: 1 1 10%;
                         text-align: center;
+                        font-size: 13px;
                     }
 
                     .songDuration {
                         flex: 0 1 auto;
                         order: 4;
                         text-align: right;
+                        font-size: 13px;
                     }
 
                     .songTitle {
                         flex: 0 0 37%;
                         flex-direction: row;
                         text-align: left;
+                        font-size: 13px;
                     }
                 }
 
@@ -331,6 +394,74 @@ html {
 @media only screen and (min-width: 720px) {
     body {
         main {
+            .contactUs {
+                border-radius: 3px;
+                border: 2px solid @secondary-color;
+                border-radius: 3px;
+                box-shadow: 0 2px 2px 0 rgba(@secondary-color,0.14), 0 3px 1px -2px rgba(@secondary-color,0.12), 0 1px 5px 0 rgba(@secondary-color,0.2);
+                font-size: 15px;
+                max-width: 500px;
+                margin: 20px auto auto auto;
+                padding: 0px 20px 0px 20px;
+
+                h3 {
+                    text-align: center;
+                }
+
+                p {
+                    text-align: left;
+                }
+
+                ul.formWrapper {
+                    list-style-type: none;
+                    padding: 0px;
+
+                    li {
+                        align-items: flex-start;
+                        display: flex;
+                        flex-wrap: wrap;
+                        margin: 20px 0px;
+
+                        #formSubmit {
+                            background: @secondary-color;
+                            border: none;
+                            border-radius: 2px;
+                            cursor: pointer;
+                            color: #f2f2f2;
+                            margin-left: auto;
+                            margin-top: 10px;
+                            max-width: 355px;
+                            padding: 8px 16px;
+                            text-transform: uppercase;
+                            transition: color 0.3s ease-in-out;
+
+                            &:hover {
+                                color: @primary-color-light;
+                                transition: color 0.3s ease-in-out;
+                            }
+                        }
+
+                        label, input, textarea {
+                            flex: 1 0 130px;
+                            max-width: 130px;
+                        }
+
+                        input, textarea {
+                            margin-left: auto;
+                            flex: 1 0 350px;
+                            max-width: 350px;
+                        }
+
+                        textarea {
+                            flex-direction: column;
+                            letter-spacing: normal;
+                            word-spacing: normal;
+                            border: none;
+                        }
+                    }
+                }
+            }
+
             .playList {
                 .trackList {
                     max-height: 650px;

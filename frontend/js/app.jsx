@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PlayList from './playList'
+import ContactUs from './contactUs'
 import { confirmArrayFrom } from './util'
 
 
@@ -8,7 +9,11 @@ function Root() {
     confirmArrayFrom()
 
     return (
-        <PlayList />
+        <div>
+            <PlayList />
+            <ContactUs />
+        </div>
+
     )
 }
 
