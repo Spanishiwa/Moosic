@@ -251,9 +251,10 @@ html {
                 border: 2px solid @secondary-color;
                 border-radius: 3px;
                 box-shadow: 0 2px 2px 0 rgba(@secondary-color,0.14), 0 3px 1px -2px rgba(@secondary-color,0.12), 0 1px 5px 0 rgba(@secondary-color,0.2);
+                box-sizing: border-box;
                 font-size: 15px;
-                max-width: 300px;
                 margin: 20px auto auto auto;
+                max-width: 500px;
                 padding: 0px 20px 0px 20px;
 
                 h3 {
@@ -312,6 +313,9 @@ html {
             }
 
             .playList {
+                max-width: 500px;
+                margin: auto;
+
                 .trackList {
                     max-height: 435px;
                     overflow-y: auto;
@@ -405,7 +409,7 @@ html {
                     .mobile {
                         animation: marquee 10s linear infinite;
                         display: block;
-                        padding: 15px 0px 10px 10px;
+                        padding: 15px 0px 0px 10px;
                         white-space: nowrap;
                     }
                 }
@@ -425,8 +429,9 @@ html {
                 border: 2px solid @secondary-color;
                 border-radius: 3px;
                 box-shadow: 0 2px 2px 0 rgba(@secondary-color,0.14), 0 3px 1px -2px rgba(@secondary-color,0.12), 0 1px 5px 0 rgba(@secondary-color,0.2);
+                box-sizing: border-box;
                 font-size: 15px;
-                max-width: 500px;
+                max-width: 1000px;
                 margin: 20px auto auto auto;
                 padding: 0px 20px 0px 20px;
 
@@ -490,13 +495,16 @@ html {
             }
 
             .playList {
+                margin: auto;
+                max-width: 1000px;
+
                 .trackList {
                     max-height: 650px;
                     overflow-y: auto;
 
                     .albumTitle {
-                        flex: 1 1 26%;
-                        text-align: left;
+                        flex: 1 1 27%;
+                        text-align: center;
                     }
 
                     .artistTitle {
@@ -507,12 +515,13 @@ html {
                     .songDuration {
                         flex: 1 1 12%;
                         order: 4;
-                        text-align: right;
+                        text-align: center;
                     }
 
                     .songTitle {
-                        flex: 1 0 45%;
+                        flex: 1 0 44%;
                         flex-direction: row;
+                        text-align: left;
                     }
                 }
 
@@ -526,7 +535,7 @@ html {
                 li.playList-header {
                     .albumTitle {
                         flex: 1 1 26%;
-                        text-align: left;
+                        text-align: center;
                     }
 
                     .artistTitle {
@@ -537,7 +546,7 @@ html {
                     .songDuration {
                         flex: 1 1 12%;
                         order: 4;
-                        text-align: right;
+                        text-align: center;
                     }
 
                     .songTitle {
@@ -550,10 +559,6 @@ html {
                 li.playList-footer {
                     display: flex;
                     justify-content: space-between;
-
-                    div.controls {
-                        flex-grow: 1;
-                    }
 
                     div.mobile {
                         display: none;
