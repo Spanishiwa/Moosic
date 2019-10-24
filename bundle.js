@@ -526,9 +526,9 @@ function (_React$Component2) {
         className: "songTitle"
       }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "artistTitle"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Artist"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "albumTitle"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Album"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "songDuration"
       }, "Length")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "trackList"
