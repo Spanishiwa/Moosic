@@ -181,7 +181,7 @@ function (_React$Component) {
         id: "formCompany",
         type: "text",
         name: "company",
-        placeholder: "Moosik, LLC"
+        placeholder: "Moosic, LLC"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "formEmail",
         type: "text",

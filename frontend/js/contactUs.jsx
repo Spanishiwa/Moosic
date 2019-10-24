@@ -15,7 +15,7 @@ export default class ContactUs extends React.Component {
                         </li>
                         <li>
                             <label>Company</label>
-                            <input id='formCompany' type='text' name='company' placeholder='Moosik, LLC' />
+                            <input id='formCompany' type='text' name='company' placeholder='Moosic, LLC' />
                         </li>
                         <li>
                             <label>Email</label>
