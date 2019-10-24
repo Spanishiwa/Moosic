@@ -31,11 +31,16 @@
 // yellow primary-color #cbbe00
 @primary-color: #cbbe00;
 @primary-color-light: lighten(@primary-color, 7%);
+
 // purple secondary-color #66025c
 @secondary-color-base: #66025c;
-@secondary-color: darken(@secondary-color-base, 10%);
-@secondary-color-light: lighten(@secondary-color, 10%);
+@secondary-color: darken(@alternative-color-base, 10%);
+@secondary-color-light: lighten(@alternative-color, 10%);
 
+// alternative color base blue-purple #142f7a
+@alternative-color-base: #071a66;
+@alternative-color: darken(@alternative-color-base, 10%);
+@alternative-color-light: lighten(@alternative-color, 10%);
 
 // Keyframes
 @keyframes border-dance {
