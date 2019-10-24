@@ -31,6 +31,14 @@
     transform: rotate(360deg);
   }
 }
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}
 body {
   background-color: #ddd;
   font-family: 'Syncopate';
@@ -54,7 +62,6 @@ body main .playList li {
   border: 2px outset #cbbe00;
   box-shadow: 0 0 0 1px #34012f inset, 1px 1px 3px 2px #34012f inset;
   box-sizing: border-box;
-  cursor: pointer;
   justify-content: center;
   padding: 15px 10px 10px 10px;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -69,14 +76,17 @@ body main .playList li:after {
   content: "";
   display: table;
 }
-body main .playList li:not(.controls):hover {
+body main .playList li:not(.playList-footer) {
+  cursor: pointer;
+}
+body main .playList li:not(.playList-footer):hover {
   background-color: #cbbe00;
   border: 2px dashed #34012f;
   color: #34012f;
   text-shadow: -1px -1px #66025c;
   transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
-body main .playList li:not(.controls):hover:not(.active) {
+body main .playList li:not(.playList-footer):hover:not(.active) {
   animation: border-dance 1s infinite linear;
   background: linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%);
   background-color: #cbbe00;
@@ -102,10 +112,11 @@ body main .playList li.active {
 body main .playList li.active:hover {
   border: 2px outset #cbbe00;
 }
-body main .playList li.controls .material-icons {
+body main .playList li.playList-footer .material-icons {
   border: 2px solid transparent;
   border-radius: 50%;
   box-shadow: 0 0 0 1px #efdf00 inset, 1px 1px 3px 2px #efdf00 inset;
+  cursor: pointer;
   text-shadow: -1px -1px #66025c;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   -moz-user-select: none;
@@ -114,7 +125,7 @@ body main .playList li.controls .material-icons {
   user-select: none;
   -o-user-select: none;
 }
-body main .playList li.controls .material-icons:hover {
+body main .playList li.playList-footer .material-icons:hover {
   background-color: #efdf00;
   border: 2px inset #34012f;
   border-radius: 50%;
@@ -166,57 +177,89 @@ body main .playList li {
 .col {
   flex: 0 0 auto;
 }
-.m2 {
-  flex-basis: 16.66666667%;
-  max-width: 16.66666667%;
-}
-.m4 {
-  flex-basis: 33.33333333%;
-  max-width: 33.33333333%;
-}
-.sm1,
-.m1 {
-  flex-basis: 8.33333333%;
-  max-width: 8.33333333%;
-}
-.sm3,
-.m3 {
-  flex-basis: 25%;
-  max-width: 25%;
-}
-.sm6 {
-  flex-basis: 50%;
-  max-width: 50%;
-}
-.sm9 {
-  flex-basis: 75%;
-  max-width: 75%;
-}
 html {
   opacity: 1;
   visibility: visible;
 }
-@media only screen and (min-width: 601px) {
+@media only screen and (max-width: 719px) {
+  body main .playList .trackList {
+    max-height: 435px;
+    overflow-y: scroll;
+  }
+  body main .playList .trackList .albumTitle {
+    align-self: flex-end;
+    text-align: right;
+    flex: 1 1 60%;
+    font-size: 13px;
+  }
+  body main .playList .trackList .artistTitle {
+    align-self: flex-end;
+    text-align: left;
+    flex: 1 1 40%;
+    font-size: 13px;
+  }
+  body main .playList .trackList .songDuration {
+    align-self: flex-start;
+    text-align: right;
+    flex: 0 1 auto;
+    font-size: 10px;
+  }
+  body main .playList .trackList .songTitle {
+    align-self: flex-start;
+    text-align: left;
+    flex-direction: row;
+    flex: 1 0 80%;
+    font-size: 13px;
+  }
+  body main .playList li.playList-footer {
+    text-align: center;
+    overflow: hidden;
+  }
+  body main .playList li.playList-footer .controls,
+  body main .playList li.playList-footer .mobile {
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+  body main .playList li.playList-footer .desktop {
+    display: none;
+  }
+  body main .playList li.playList-footer .material-icons {
+    font-size: 38px;
+  }
+  body main .playList li.playList-footer .material-icons.play {
+    margin: 0px 30px;
+  }
+  body main .playList li.playList-footer .mobile {
+    animation: marquee 10s linear infinite;
+    display: block;
+    padding: 15px 0px 10px 10px;
+    white-space: nowrap;
+  }
+}
+@media only screen and (min-width: 720px) {
   body main .playList li {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
-  body main .playList li div.m1 {
-    flex-basis: 8.33333333%;
-    max-width: 8.33333333%;
+  body main .playList li.playList-footer {
+    display: flex;
+    justify-content: space-between;
   }
-  body main .playList li div.m2 {
-    flex-basis: 16.66666667%;
-    max-width: 16.66666667%;
+  body main .playList li.playList-footer div.controls {
+    flex-grow: 1;
   }
-  body main .playList li div.m3 {
-    flex-basis: 25%;
-    max-width: 25%;
+  body main .playList li.playList-footer div.mobile {
+    display: none;
   }
-  body main .playList li div.m4 {
-    flex-basis: 33.33333333%;
-    max-width: 33.33333333%;
+  body main .playList li.playList-footer .desktop {
+    display: block;
+  }
+  body main .playList li.playList-footer .material-icons {
+    font-size: 38px;
+  }
+  body main .playList li.playList-footer .material-icons.play {
+    margin: 0px 10px;
   }
 }
 /*# sourceMappingURL=styles.css.map */

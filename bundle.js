@@ -185,13 +185,13 @@ function (_React$Component) {
           return onSelection(idx);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sm9 m4"
+        className: "songTitle"
       }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sm3 m2"
+        className: "songDuration"
       }, durationClockFormat), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sm6 m3"
+        className: "artistTitle"
       }, artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sm6 m3"
+        className: "albumTitle"
       }, albumTitle));
     }
   }]);
@@ -425,24 +425,30 @@ function (_React$Component2) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "playList"
-      }, playList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "controls"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "sm1 m1"
+        className: "trackList"
+      }, playList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "playList-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "controls"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons",
         onClick: function onClick() {
           return _this2.skipPrevious();
         }
       }, "skip_previous"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons",
+        className: "material-icons play",
         onClick: playOnClick
       }, playing ? 'pause_circle_filled' : 'play_arrow'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons",
         onClick: function onClick() {
           return _this2.skipNext();
         }
-      }, "skip_next")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
+      }, "skip_next")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mobile"
+      }, "Playlist Total Time: ", playListTimeClockFormat, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "desktop"
+      }, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
         id: "audio"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
         id: "audioOver"
@@ -583,9 +589,9 @@ function secsToEnglish(totalSecs) {
       mins = _secsToTime.mins,
       secs = _secsToTime.secs;
 
-  var h = hrs > 1 ? "".concat(hrs, " hours") : hrs === 1 ? "".concat(hrs, " hour") : "";
-  var m = mins > 1 ? "".concat(mins, " minutes") : mins === 1 ? "".concat(mins, " minute") : "";
-  var s = secs > 1 ? "".concat(secs, " seconds") : secs === 1 ? "".concat(secs, " second") : "";
+  var h = hrs > 1 ? "".concat(hrs, " hrs") : hrs === 1 ? "".concat(hrs, " hr") : "";
+  var m = mins > 1 ? "".concat(mins, " mins") : mins === 1 ? "".concat(mins, " min") : "";
+  var s = secs > 1 ? "".concat(secs, " secs") : secs === 1 ? "".concat(secs, " sec") : "";
   return "".concat(h, " ").concat(m, " ").concat(s);
 } // secsToClockHrsMinsSecs : Number -> String
 

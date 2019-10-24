@@ -94,9 +94,9 @@ export function secsToTime(totalSecs) {
 export function secsToEnglish(totalSecs) {
     const { hrs, mins, secs } = secsToTime(totalSecs)
 
-    const h = hrs > 1 ? `${hrs} hours` : hrs === 1 ? `${hrs} hour` : ``
-    const m = mins > 1 ? `${mins} minutes` : mins === 1 ? `${mins} minute` : ``
-    const s = secs > 1 ? `${secs} seconds` : secs === 1 ? `${secs} second` : ``
+    const h = hrs > 1 ? `${hrs} hrs` : hrs === 1 ? `${hrs} hr` : ``
+    const m = mins > 1 ? `${mins} mins` : mins === 1 ? `${mins} min` : ``
+    const s = secs > 1 ? `${secs} secs` : secs === 1 ? `${secs} sec` : ``
 
     return (`${h} ${m} ${s}`)
 }

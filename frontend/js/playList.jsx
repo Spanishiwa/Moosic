@@ -14,10 +14,10 @@ class Song extends React.Component {
 
         return (
             <li className={klass} onClick={() => onSelection(idx)}>
-                <div className='sm9 m4'>{title}</div>
-                <div className='sm3 m2'>{durationClockFormat}</div>
-                <div className='sm6 m3'>{artistTitle}</div>
-                <div className='sm6 m3'>{albumTitle}</div>
+                <div className='songTitle'>{title}</div>
+                <div className='songDuration'>{durationClockFormat}</div>
+                <div className='artistTitle'>{artistTitle}</div>
+                <div className='albumTitle'>{albumTitle}</div>
             </li>
         )
     }
@@ -214,17 +214,20 @@ export default class PlayList extends React.Component {
 
         return (
             <ul className='playList'>
-                {playList}
-                <li className='controls'>
-                    <div className='sm1 m1'>
+                <div className='trackList'>
+                    {playList}
+                </div>
+                <li className='playList-footer'>
+                    <div className='controls'>
                         <i className='material-icons'
                         onClick={() => this.skipPrevious()}>skip_previous</i>
-                        <i className='material-icons' onClick={playOnClick}>
+                        <i className='material-icons play' onClick={playOnClick}>
                         {playing ? 'pause_circle_filled' : 'play_arrow'}</i>
                         <i className='material-icons'
                         onClick={() => this.skipNext()}>skip_next</i>
                     </div>
-                    <div>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
+                    <div className='mobile'>Playlist Total Time: {playListTimeClockFormat} ({countTracks} songs)</div>
+                    <div className='desktop'>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
                 </li>
                 <audio id='audio'></audio>
                 <audio id='audioOver'></audio>
