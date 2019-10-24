@@ -425,7 +425,17 @@ function (_React$Component2) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "playList"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "playList-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "songTitle"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "artistTitle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "albumTitle"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "songDuration"
+      }, "Length")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "trackList"
       }, playList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "playList-footer"

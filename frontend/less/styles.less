@@ -84,14 +84,19 @@ body {
             border-radius: 3px;
             color: @primary-color-light;
             height: 100%;
+            list-style-type: none;
             margin: 0;
             padding: 0;
 
-            li:extend(.row) {
+            li {
                 align-items: center;
                 border: 2px outset @primary-color;
                 box-shadow: 0 0 0 1px @secondary-color inset, 1px 1px 3px 2px @secondary-color inset;
                 box-sizing: border-box;
+                display: flex;
+                flex: 0 1 auto;
+                flex-direction: row;
+                flex-wrap: wrap;
                 justify-content: center;
                 padding: 15px 10px 10px 10px;
                 transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -107,7 +112,7 @@ body {
                     display: table;
                 }
 
-                &:not(.playList-footer) {
+                &:not(.playList-footer):not(.playList-header) {
                     cursor: pointer;
 
                     &:hover {
@@ -148,6 +153,9 @@ body {
                 &:hover {
                     border: 2px outset @primary-color;
                 }
+            }
+
+            li.playList-header {
             }
 
             li.playList-footer {
@@ -215,24 +223,6 @@ body {
   font-feature-settings: 'liga';
 }
 
-
-// flexboxgrid styles
-.flex-col(@size) {
-    flex-basis: ((@size / 12) * 100%);
-    max-width: ((@size / 12) * 100%);
-}
-
-.row {
-    display: flex;
-    flex: 0 1 auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.col {
-    flex: 0 0 auto;
-}
-
 //fouc-fix
 html {
     opacity: 1;
@@ -247,7 +237,7 @@ html {
             .playList {
                 .trackList {
                     max-height: 435px;
-                    overflow-y: scroll;
+                    overflow-y: auto;
 
                     .albumTitle {
                         align-self: flex-end;
@@ -268,7 +258,7 @@ html {
                         text-align: right;
                         flex: 0 1 auto;
                         font-size: 10px;
-                        }
+                    }
 
                     .songTitle {
                         align-self: flex-start;
@@ -276,6 +266,30 @@ html {
                         flex-direction: row;
                         flex: 1 0 80%;
                         font-size: 13px;
+                    }
+                }
+
+                li.playList-header {
+                    .albumTitle {
+                        flex: 0 1 20%;
+                        text-align: center;
+                    }
+
+                    .artistTitle {
+                        flex: 1 1 10%;
+                        text-align: center;
+                    }
+
+                    .songDuration {
+                        flex: 0 1 auto;
+                        order: 4;
+                        text-align: right;
+                    }
+
+                    .songTitle {
+                        flex: 0 0 37%;
+                        flex-direction: row;
+                        text-align: left;
                     }
                 }
 
@@ -318,11 +332,60 @@ html {
     body {
         main {
             .playList {
+                .trackList {
+                    max-height: 650px;
+                    overflow-y: auto;
+
+                    .albumTitle {
+                        flex: 1 1 auto;
+                        text-align: left;
+                    }
+
+                    .artistTitle {
+                        flex: 1 1 auto;
+                        text-align: left;
+                    }
+
+                    .songDuration {
+                        flex: 0 1 auto;
+                        order: 4;
+                    }
+
+                    .songTitle {
+                        flex: 1 0 37%;
+                        flex-direction: row;
+                    }
+                }
+
                 li:extend(.row) {
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
 
+                }
+
+                li.playList-header {
+                    .albumTitle {
+                        flex: 0 1 20%;
+                        text-align: center;
+                    }
+
+                    .artistTitle {
+                        flex: 1 1 10%;
+                        text-align: center;
+                    }
+
+                    .songDuration {
+                        flex: 0 1 auto;
+                        order: 4;
+                        text-align: right;
+                    }
+
+                    .songTitle {
+                        flex: 0 0 37%;
+                        flex-direction: row;
+                        text-align: left;
+                    }
                 }
 
                 li.playList-footer {

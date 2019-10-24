@@ -54,6 +54,7 @@ body main .playList {
   border-radius: 3px;
   color: #efdf00;
   height: 100%;
+  list-style-type: none;
   margin: 0;
   padding: 0;
 }
@@ -62,6 +63,10 @@ body main .playList li {
   border: 2px outset #cbbe00;
   box-shadow: 0 0 0 1px #34012f inset, 1px 1px 3px 2px #34012f inset;
   box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 15px 10px 10px 10px;
   transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -76,17 +81,17 @@ body main .playList li:after {
   content: "";
   display: table;
 }
-body main .playList li:not(.playList-footer) {
+body main .playList li:not(.playList-footer):not(.playList-header) {
   cursor: pointer;
 }
-body main .playList li:not(.playList-footer):hover {
+body main .playList li:not(.playList-footer):not(.playList-header):hover {
   background-color: #cbbe00;
   border: 2px dashed #34012f;
   color: #34012f;
   text-shadow: -1px -1px #66025c;
   transition: text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
-body main .playList li:not(.playList-footer):hover:not(.active) {
+body main .playList li:not(.playList-footer):not(.playList-header):hover:not(.active) {
   animation: border-dance 1s infinite linear;
   background: linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(90deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%), linear-gradient(0deg, #34012f 50%, #cbbe00 50%);
   background-color: #cbbe00;
@@ -167,16 +172,6 @@ body #playListData {
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
-.row,
-body main .playList li {
-  display: flex;
-  flex: 0 1 auto;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.col {
-  flex: 0 0 auto;
-}
 html {
   opacity: 1;
   visibility: visible;
@@ -184,7 +179,7 @@ html {
 @media only screen and (max-width: 719px) {
   body main .playList .trackList {
     max-height: 435px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
   body main .playList .trackList .albumTitle {
     align-self: flex-end;
@@ -210,6 +205,24 @@ html {
     flex-direction: row;
     flex: 1 0 80%;
     font-size: 13px;
+  }
+  body main .playList li.playList-header .albumTitle {
+    flex: 0 1 20%;
+    text-align: center;
+  }
+  body main .playList li.playList-header .artistTitle {
+    flex: 1 1 10%;
+    text-align: center;
+  }
+  body main .playList li.playList-header .songDuration {
+    flex: 0 1 auto;
+    order: 4;
+    text-align: right;
+  }
+  body main .playList li.playList-header .songTitle {
+    flex: 0 0 37%;
+    flex-direction: row;
+    text-align: left;
   }
   body main .playList li.playList-footer {
     text-align: center;
@@ -237,10 +250,48 @@ html {
   }
 }
 @media only screen and (min-width: 720px) {
+  body main .playList .trackList {
+    max-height: 650px;
+    overflow-y: auto;
+  }
+  body main .playList .trackList .albumTitle {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+  body main .playList .trackList .artistTitle {
+    flex: 1 1 auto;
+    text-align: left;
+  }
+  body main .playList .trackList .songDuration {
+    flex: 0 1 auto;
+    order: 4;
+  }
+  body main .playList .trackList .songTitle {
+    flex: 1 0 37%;
+    flex-direction: row;
+  }
   body main .playList li {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+  }
+  body main .playList li.playList-header .albumTitle {
+    flex: 0 1 20%;
+    text-align: center;
+  }
+  body main .playList li.playList-header .artistTitle {
+    flex: 1 1 10%;
+    text-align: center;
+  }
+  body main .playList li.playList-header .songDuration {
+    flex: 0 1 auto;
+    order: 4;
+    text-align: right;
+  }
+  body main .playList li.playList-header .songTitle {
+    flex: 0 0 37%;
+    flex-direction: row;
+    text-align: left;
   }
   body main .playList li.playList-footer {
     display: flex;
