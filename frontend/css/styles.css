@@ -215,6 +215,11 @@ html {
     flex: 1 0 220px;
     margin-left: auto;
   }
+  body main .contactUs ul.formWrapper li input,
+  body main .contactUs ul.formWrapper li textarea {
+    border: 1px solid #8e8e8e;
+    padding: 3px;
+  }
   body main .contactUs ul.formWrapper #formSubmit {
     background: #34012f;
     border: none;
@@ -343,7 +348,7 @@ html {
     color: #f2f2f2;
     margin-left: auto;
     margin-top: 10px;
-    max-width: 355px;
+    max-width: 350px;
     padding: 8px 16px;
     text-transform: uppercase;
     transition: color 0.3s ease-in-out;
@@ -360,15 +365,16 @@ html {
   }
   body main .contactUs ul.formWrapper li input,
   body main .contactUs ul.formWrapper li textarea {
-    margin-left: auto;
+    border: 1px solid #8e8e8e;
     flex: 1 0 350px;
+    margin-left: auto;
     max-width: 350px;
+    padding: 3px;
   }
   body main .contactUs ul.formWrapper li textarea {
     flex-direction: column;
     letter-spacing: normal;
     word-spacing: normal;
-    border: none;
   }
   body main .playList .trackList {
     max-height: 650px;
