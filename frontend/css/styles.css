@@ -192,10 +192,12 @@ html {
     padding: 0px 20px 0px 20px;
   }
   body main .contactUs h3 {
+    margin-bottom: 30px;
     text-align: center;
   }
   body main .contactUs p {
-    text-align: left;
+    margin: auto auto 40px auto;
+    text-align: center;
   }
   body main .contactUs ul.formWrapper {
     list-style-type: none;
@@ -339,13 +341,18 @@ html {
     padding: 0px 20px 0px 20px;
   }
   body main .contactUs h3 {
+    margin-bottom: 30px;
     text-align: center;
   }
   body main .contactUs p {
-    text-align: left;
+    margin: auto auto 40px auto;
+    max-width: 800px;
+    text-align: center;
   }
   body main .contactUs ul.formWrapper {
     list-style-type: none;
+    margin: auto;
+    max-width: 800px;
     padding: 0px;
   }
   body main .contactUs ul.formWrapper li {
@@ -443,11 +450,17 @@ html {
     display: flex;
     justify-content: space-between;
   }
+  body main .playList li.playList-footer .controls {
+    flex: 1 1 25%;
+    text-align: center;
+  }
   body main .playList li.playList-footer div.mobile {
     display: none;
   }
   body main .playList li.playList-footer .desktop {
     display: block;
+    flex: 1 1 75%;
+    text-align: center;
   }
   body main .playList li.playList-footer .material-icons {
     font-size: 38px;
