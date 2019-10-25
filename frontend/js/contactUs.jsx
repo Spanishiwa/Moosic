@@ -10,23 +10,23 @@ export default class ContactUs extends React.Component {
                 <form>
                     <ul className='formWrapper'>
                         <li>
-                            <label>Name</label>
+                            <label htmlFor='formName'>Name</label>
                             <input id='formName' type='text' name='name' placeholder='John Smith' />
                         </li>
                         <li>
-                            <label>Company</label>
+                            <label htmlFor='formCompany'>Company</label>
                             <input id='formCompany' type='text' name='company' placeholder='Moosic, LLC' />
                         </li>
                         <li>
-                            <label>Email</label>
+                            <label htmlFor='formEmail'>Email</label>
                             <input id='formEmail' type='text' name='email' placeholder='example@gmail.com' />
                         </li>
                         <li>
-                            <label>Subject</label>
+                            <label htmlFor='formSubject'>Subject</label>
                             <input id='formSubject' type='text' name='subject' placeholder='Fan Mail'/>
                         </li>
                         <li>
-                            <label>Description</label>
+                            <label htmlFor='formDescription'>Description</label>
                             <textarea id='formDescription' type='text' placeholder='Let us know the reason for contacting us' rows='6' />
                         </li>
                         <li>

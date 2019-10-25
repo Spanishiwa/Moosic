@@ -172,27 +172,37 @@ function (_React$Component) {
         className: "contactUs"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Contact Us"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Want to send Moosic some feedback or find out where we're playing next? Send us a message!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "formWrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "formName"
+      }, "Name"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "formName",
         type: "text",
         name: "name",
         placeholder: "John Smith"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "formCompany"
+      }, "Company"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "formCompany",
         type: "text",
         name: "company",
         placeholder: "Moosic, LLC"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "formEmail"
+      }, "Email"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "formEmail",
         type: "text",
         name: "email",
         placeholder: "example@gmail.com"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Subject"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "formSubject"
+      }, "Subject"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         id: "formSubject",
         type: "text",
         name: "subject",
         placeholder: "Fan Mail"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        htmlFor: "formDescription"
+      }, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         id: "formDescription",
         type: "text",
         placeholder: "Let us know the reason for contacting us",
@@ -272,8 +282,8 @@ function (_React$Component) {
           onSelection = _this$props.onSelection,
           selectedIdx = _this$props.selectedIdx,
           title = _this$props.title;
-      var klass = idx === selectedIdx ? 'active' : '';
       var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(durationSecs);
+      var klass = idx === selectedIdx ? 'active' : '';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: klass,
         onClick: function onClick() {
@@ -379,8 +389,7 @@ function (_React$Component2) {
   }, {
     key: "pause",
     value: function pause() {
-      var audio = document.getElementById('audio');
-      audio.pause();
+      document.getElementById('audio').pause();
       this.setState({
         playing: false
       });
@@ -442,7 +451,6 @@ function (_React$Component2) {
       var elapsedTime = this.timeNow() - this.state.startTime;
 
       if (elapsedTime > 29999) {
-        console.log('30s passed');
         clearInterval(this.state.intervalId);
         this.sampleOver();
       } else {

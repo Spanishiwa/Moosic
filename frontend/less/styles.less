@@ -505,41 +505,10 @@ html {
                 margin: auto;
                 max-width: 1000px;
 
-                .trackList {
+                li.playList-header, .trackList {
                     max-height: 650px;
                     overflow-y: auto;
 
-                    .albumTitle {
-                        flex: 1 1 27%;
-                        text-align: center;
-                    }
-
-                    .artistTitle {
-                        flex: 1 1 16%;
-                        text-align: center;
-                    }
-
-                    .songDuration {
-                        flex: 1 1 12%;
-                        order: 4;
-                        text-align: center;
-                    }
-
-                    .songTitle {
-                        flex: 1 0 44%;
-                        flex-direction: row;
-                        text-align: center;
-                    }
-                }
-
-                li:extend(.row) {
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-
-                }
-
-                li.playList-header {
                     .albumTitle {
                         flex: 1 1 27%;
                         text-align: center;
@@ -561,6 +530,13 @@ html {
                         flex-direction: row;
                         text-align: center;
                     }
+                }
+
+                li:extend(.row) {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+
                 }
 
                 li.playList-footer {

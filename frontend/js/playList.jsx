@@ -9,8 +9,8 @@ class Song extends React.Component {
     render () {
         const { albumTitle, artistTitle, durationSecs, idx
         , onSelection, selectedIdx, title } = this.props
-        const klass = idx === selectedIdx ? 'active' : ''
         const durationClockFormat = secsToHrsMinsSecs(durationSecs)
+        const klass = idx === selectedIdx ? 'active' : ''
 
         return (
             <li className={klass} onClick={() => onSelection(idx)}>
@@ -92,9 +92,7 @@ export default class PlayList extends React.Component {
 
     // pause : Playlist -> Playlist
     pause() {
-        const audio = document.getElementById('audio')
-        audio.pause()
-
+        document.getElementById('audio').pause()
         this.setState({playing: false})
     }
 
@@ -106,7 +104,6 @@ export default class PlayList extends React.Component {
         this.pause()
         this.resetSong()
         document.getElementById('audioOver').play()
-
     }
 
     // selectSong : PlayList -> PlayList
@@ -152,7 +149,6 @@ export default class PlayList extends React.Component {
         const elapsedTime = this.timeNow() - this.state.startTime
 
         if (elapsedTime > 29999) {
-            console.log('30s passed');
             clearInterval(this.state.intervalId)
             this.sampleOver();
         } else {
