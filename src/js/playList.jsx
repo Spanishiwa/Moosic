@@ -1,4 +1,5 @@
 import React from 'react'
+import db from './db'
 import { secsToEnglish, secsToHrsMinsSecs } from './util'
 import Song from './song'
 
@@ -28,9 +29,8 @@ export default class PlayList extends React.Component {
 
     // componentDidMount : PlayList -> PlayList
     componentDidMount() {
-        const songs = Array.from(document.querySelector('#playListData').children)
+        const songs = db.songs
         this.setState({songs: songs})
-
         this.loadSampleOver()
     }
 
@@ -39,7 +39,7 @@ export default class PlayList extends React.Component {
         const audioOver = document.getElementById('audioOver')
 
         audioOver.defaultPlaybackRate = 1.0
-        audioOver.src = './src/sounds/30s-is-over.wav'
+        audioOver.src = db.alerts[0].src
     }
 
     // loadSong: PlayList -> Number -> PlayList
@@ -48,7 +48,7 @@ export default class PlayList extends React.Component {
         const song = this.state.songs[songIdx]
 
         audio.defaultPlaybackRate = 1.5
-        audio.src = song.dataset.mp3Src
+        audio.src = song.src
     }
 
     // play : PlayList -> Number -> PlayList
@@ -147,11 +147,11 @@ export default class PlayList extends React.Component {
     // PlayList -> Number
     toSecs() {
         const songs = this.state.songs
-        const songDurationSecs = (secsSum, song) => {
-            return secsSum + parseInt(song.dataset.songDurationSecs)
+        const sumDuration = (secsSum, song) => {
+            return secsSum + parseInt(song.duration)
         }
 
-        return songs.reduce((songDurationSecs), 0)
+        return songs.reduce((sumDuration), 0)
     }
 
     // resetSampleOver : PlayList -> PlayList
@@ -170,17 +170,17 @@ export default class PlayList extends React.Component {
         : () => this.play(selectedSongIdx)
 
         const playList = songs.map((song, idx) => {
-            const { artistTitle, albumTitle, songDurationSecs, songTitle } = song.dataset
+            const { artist, album, duration, title } = song
             return (
                 <Song
                 key={idx}
-                artistTitle={artistTitle}
-                albumTitle={albumTitle}
-                durationSecs={songDurationSecs}
+                artist={artist}
+                album={album}
+                duration={duration}
                 idx={idx}
                 selectedIdx={selectedSongIdx}
                 onSelection={this.play}
-                title={songTitle}
+                title={title}
                 />
             )
         })
@@ -188,10 +188,10 @@ export default class PlayList extends React.Component {
         return (
             <ul className='playList'>
                 <li className='playList-header'>
-                    <div className='songTitle'>Track Title</div>
-                    <div className='artistTitle'>Artist</div>
-                    <div className='albumTitle'>Album</div>
-                    <div className='songDuration'>Length</div>
+                    <div className='title'>Title</div>
+                    <div className='artist'>Artist</div>
+                    <div className='album'>Album</div>
+                    <div className='duration'>Length</div>
                 </li>
                 <div className='trackList'>
                     { playList }

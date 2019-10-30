@@ -1,0 +1,58 @@
+{
+    "songs": [
+        {
+            "artist": "Alec Benjamin",
+            "album": "Narrated For You",
+            "duration": "189",
+            "title": "Outrunning Karma",
+            "src": "./src/sounds/alec-benjamin-outrunning-karma.mp3"
+        },
+        {
+            "artist": "Glass Animals",
+            "album": "How to Be a Human Being",
+            "duration": "234",
+            "title": "Youth",
+            "src": "./src/sounds/glass-animals-youth.mp3"
+        },
+        {
+            "artist": "grandson",
+            "album": "Eponymous",
+            "duration": "233",
+            "title": "Bury Me Face Down",
+            "src": "./src/sounds/grandson-bury-me-face-down.mp3"
+        },
+        {
+            "artist": "Lemaitre",
+            "album": "FIFA 17 Soundtrack",
+            "duration": "210",
+            "title": "We Got U",
+            "src": "./src/sounds/lematire-we-got-you.mp3"
+        },
+        {
+            "artist": "Unlike Pluto",
+            "album": "Monstercat Uncaged Vol. 1",
+            "duration": "229",
+            "title": "Everything Black feat. Mike Taylor",
+            "src": "./src/sounds/mike-taylor-everything-black.mp3"
+        },
+        {
+            "artist": "Muse",
+            "album": "Black Holes and Revelations",
+            "duration": "258",
+            "title": "Map of the Problematique",
+            "src": "./src/sounds/muse-map-of-the-problematique.mp3"
+        }
+        ,{
+            "artist": "Sam Tinnesz",
+            "album": "Babel",
+            "duration": "228",
+            "title": "Babel (Alternate Version)",
+            "src": "./src/sounds/sam-tinnesz-babel-(alternate-version).mp3"
+        }
+    ],
+    "alerts": [
+        {
+            "src": "./src/sounds/30s-is-over.wav"
+        }
+    ]
+}

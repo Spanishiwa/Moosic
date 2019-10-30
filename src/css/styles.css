@@ -249,53 +249,53 @@ html {
     max-height: 435px;
     overflow-y: auto;
   }
-  body main .playList .trackList .albumTitle {
+  body main .playList .trackList .album {
     align-self: flex-end;
     flex: 1 1 60%;
     font-size: 13px;
     text-align: right;
   }
-  body main .playList .trackList .artistTitle {
+  body main .playList .trackList .artist {
     align-self: flex-end;
     flex: 1 1 40%;
     font-size: 13px;
     text-align: left;
   }
-  body main .playList .trackList .songDuration {
+  body main .playList .trackList .duration {
     align-self: flex-start;
     flex: 1 1 10%;
     font-size: 10px;
     text-align: right;
   }
-  body main .playList .trackList .songTitle {
+  body main .playList .trackList .title {
     align-self: flex-start;
     flex-direction: row;
     flex: 1 1 90%;
     font-size: 13px;
     text-align: left;
   }
-  body main .playList li.playList-header .albumTitle {
+  body main .playList li.playList-header .album {
     align-self: flex-end;
     flex: 1 1 40%;
     font-size: 13px;
     order: 4;
     text-align: right;
   }
-  body main .playList li.playList-header .artistTitle {
+  body main .playList li.playList-header .artist {
     align-self: flex-end;
     flex: 1 1 40%;
     font-size: 13px;
     order: 3;
     text-align: left;
   }
-  body main .playList li.playList-header .songDuration {
+  body main .playList li.playList-header .duration {
     align-self: flex-start;
     flex: 1 1 40%;
     font-size: 10px;
     order: 2;
     text-align: right;
   }
-  body main .playList li.playList-header .songTitle {
+  body main .playList li.playList-header .title {
     align-self: flex-start;
     flex: 1 1 40%;
     flex-direction: row;
@@ -406,24 +406,24 @@ html {
     max-height: 650px;
     overflow-y: auto;
   }
-  body main .playList li.playList-header .albumTitle,
-  body main .playList .trackList .albumTitle {
+  body main .playList li.playList-header .album,
+  body main .playList .trackList .album {
     flex: 1 1 27%;
     text-align: center;
   }
-  body main .playList li.playList-header .artistTitle,
-  body main .playList .trackList .artistTitle {
+  body main .playList li.playList-header .artist,
+  body main .playList .trackList .artist {
     flex: 1 1 16%;
     text-align: center;
   }
-  body main .playList li.playList-header .songDuration,
-  body main .playList .trackList .songDuration {
+  body main .playList li.playList-header .duration,
+  body main .playList .trackList .duration {
     flex: 1 1 12%;
     order: 4;
     text-align: center;
   }
-  body main .playList li.playList-header .songTitle,
-  body main .playList .trackList .songTitle {
+  body main .playList li.playList-header .title,
+  body main .playList .trackList .title {
     flex: 1 1 44%;
     flex-direction: row;
     text-align: center;

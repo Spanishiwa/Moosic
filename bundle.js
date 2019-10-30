@@ -32273,6 +32273,17 @@ var ContactUs = function ContactUs() {
 
 /***/ }),
 
+/***/ "./src/js/db.json":
+/*!************************!*\
+  !*** ./src/js/db.json ***!
+  \************************/
+/*! exports provided: songs, alerts, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"songs\":[{\"artist\":\"Alec Benjamin\",\"album\":\"Narrated For You\",\"duration\":\"189\",\"title\":\"Outrunning Karma\",\"src\":\"./src/sounds/alec-benjamin-outrunning-karma.mp3\"},{\"artist\":\"Glass Animals\",\"album\":\"How to Be a Human Being\",\"duration\":\"234\",\"title\":\"Youth\",\"src\":\"./src/sounds/glass-animals-youth.mp3\"},{\"artist\":\"grandson\",\"album\":\"Eponymous\",\"duration\":\"233\",\"title\":\"Bury Me Face Down\",\"src\":\"./src/sounds/grandson-bury-me-face-down.mp3\"},{\"artist\":\"Lemaitre\",\"album\":\"FIFA 17 Soundtrack\",\"duration\":\"210\",\"title\":\"We Got U\",\"src\":\"./src/sounds/lematire-we-got-you.mp3\"},{\"artist\":\"Unlike Pluto\",\"album\":\"Monstercat Uncaged Vol. 1\",\"duration\":\"229\",\"title\":\"Everything Black feat. Mike Taylor\",\"src\":\"./src/sounds/mike-taylor-everything-black.mp3\"},{\"artist\":\"Muse\",\"album\":\"Black Holes and Revelations\",\"duration\":\"258\",\"title\":\"Map of the Problematique\",\"src\":\"./src/sounds/muse-map-of-the-problematique.mp3\"},{\"artist\":\"Sam Tinnesz\",\"album\":\"Babel\",\"duration\":\"228\",\"title\":\"Babel (Alternate Version)\",\"src\":\"./src/sounds/sam-tinnesz-babel-(alternate-version).mp3\"}],\"alerts\":[{\"src\":\"./src/sounds/30s-is-over.wav\"}]}");
+
+/***/ }),
+
 /***/ "./src/js/playList.jsx":
 /*!*****************************!*\
   !*** ./src/js/playList.jsx ***!
@@ -32285,8 +32296,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PlayList; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
-/* harmony import */ var _song__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./song */ "./src/js/song.jsx");
+/* harmony import */ var _db__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./db */ "./src/js/db.json");
+var _db__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./db */ "./src/js/db.json", 1);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
+/* harmony import */ var _song__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./song */ "./src/js/song.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32304,6 +32317,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -32344,7 +32358,7 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var songs = Array.from(document.querySelector('#playListData').children);
+      var songs = _db__WEBPACK_IMPORTED_MODULE_1__.songs;
       this.setState({
         songs: songs
       });
@@ -32356,7 +32370,7 @@ function (_React$Component) {
     value: function loadSampleOver() {
       var audioOver = document.getElementById('audioOver');
       audioOver.defaultPlaybackRate = 1.0;
-      audioOver.src = './src/sounds/30s-is-over.wav';
+      audioOver.src = _db__WEBPACK_IMPORTED_MODULE_1__.alerts[0].src;
     } // loadSong: PlayList -> Number -> PlayList
 
   }, {
@@ -32365,7 +32379,7 @@ function (_React$Component) {
       var audio = document.getElementById('audio');
       var song = this.state.songs[songIdx];
       audio.defaultPlaybackRate = 1.5;
-      audio.src = song.dataset.mp3Src;
+      audio.src = song.src;
     } // play : PlayList -> Number -> PlayList
 
   }, {
@@ -32485,11 +32499,11 @@ function (_React$Component) {
     value: function toSecs() {
       var songs = this.state.songs;
 
-      var songDurationSecs = function songDurationSecs(secsSum, song) {
-        return secsSum + parseInt(song.dataset.songDurationSecs);
+      var sumDuration = function sumDuration(secsSum, song) {
+        return secsSum + parseInt(song.duration);
       };
 
-      return songs.reduce(songDurationSecs, 0);
+      return songs.reduce(sumDuration, 0);
     } // resetSampleOver : PlayList -> PlayList
 
   }, {
@@ -32505,8 +32519,8 @@ function (_React$Component) {
       var _this2 = this;
 
       var countTracks = this.countTracks();
-      var playListTimeEnglishFormat = Object(_util__WEBPACK_IMPORTED_MODULE_1__["secsToEnglish"])(this.toSecs());
-      var playListTimeClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_1__["secsToHrsMinsSecs"])(this.toSecs());
+      var playListTimeEnglishFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToEnglish"])(this.toSecs());
+      var playListTimeClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_2__["secsToHrsMinsSecs"])(this.toSecs());
       var _this$state3 = this.state,
           playing = _this$state3.playing,
           selectedSongIdx = _this$state3.selectedSongIdx,
@@ -32517,20 +32531,19 @@ function (_React$Component) {
         return _this2.play(selectedSongIdx);
       };
       var playList = songs.map(function (song, idx) {
-        var _song$dataset = song.dataset,
-            artistTitle = _song$dataset.artistTitle,
-            albumTitle = _song$dataset.albumTitle,
-            songDurationSecs = _song$dataset.songDurationSecs,
-            songTitle = _song$dataset.songTitle;
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_song__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        var artist = song.artist,
+            album = song.album,
+            duration = song.duration,
+            title = song.title;
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_song__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: idx,
-          artistTitle: artistTitle,
-          albumTitle: albumTitle,
-          durationSecs: songDurationSecs,
+          artist: artist,
+          album: album,
+          duration: duration,
           idx: idx,
           selectedIdx: selectedSongIdx,
           onSelection: _this2.play,
-          title: songTitle
+          title: title
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -32538,13 +32551,13 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "playList-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "songTitle"
-      }, "Track Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "artistTitle"
+        className: "title"
+      }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "artist"
       }, "Artist"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "albumTitle"
+        className: "album"
       }, "Album"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "songDuration"
+        className: "duration"
       }, "Length")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "trackList"
       }, playList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -32599,14 +32612,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Song = function Song(_ref) {
-  var albumTitle = _ref.albumTitle,
-      artistTitle = _ref.artistTitle,
-      durationSecs = _ref.durationSecs,
+  var album = _ref.album,
+      artist = _ref.artist,
+      duration = _ref.duration,
       idx = _ref.idx,
       onSelection = _ref.onSelection,
       selectedIdx = _ref.selectedIdx,
       title = _ref.title;
-  var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_1__["secsToHrsMinsSecs"])(durationSecs);
+  var durationClockFormat = Object(_util__WEBPACK_IMPORTED_MODULE_1__["secsToHrsMinsSecs"])(duration);
   var className = idx === selectedIdx ? 'active' : '';
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     className: className,
@@ -32614,14 +32627,14 @@ var Song = function Song(_ref) {
       return onSelection(idx);
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "songTitle"
+    className: "title"
   }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "songDuration"
+    className: "duration"
   }, durationClockFormat), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "artistTitle"
-  }, artistTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "albumTitle"
-  }, albumTitle));
+    className: "artist"
+  }, artist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "album"
+  }, album));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Song);
