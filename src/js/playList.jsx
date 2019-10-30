@@ -1,52 +1,29 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { secsToEnglish, secsToHrsMinsSecs } from './util'
+import Song from './song'
 
-
-
-class Song extends React.Component {
-    // render : PlayList -> Object
-    render () {
-        const { albumTitle, artistTitle, durationSecs, idx
-        , onSelection, selectedIdx, title } = this.props
-        const durationClockFormat = secsToHrsMinsSecs(durationSecs)
-        const klass = idx === selectedIdx ? 'active' : ''
-
-        return (
-            <li className={klass} onClick={() => onSelection(idx)}>
-                <div className='songTitle'>{title}</div>
-                <div className='songDuration'>{durationClockFormat}</div>
-                <div className='artistTitle'>{artistTitle}</div>
-                <div className='albumTitle'>{albumTitle}</div>
-            </li>
-        )
-    }
-}
 
 export default class PlayList extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            elapsedTime: 0
-            , intervalId: []
-            , playing: false
-            , selectedSongIdx: -1
-            , songs: []
-            , startTime: 0
+            elapsedTime: 0,
+            intervalId: [],
+            playing: false,
+            selectedSongIdx: -1,
+            songs: [],
+            startTime: 0
         }
 
-        this.pause = this.pause.bind(this)
         this.play = this.play.bind(this)
-        this.selectSong = this.selectSong.bind(this)
-        this.skipNext = this.skipNext.bind(this)
-        this.skipPrevious = this.skipPrevious.bind(this)
         this.tick = this.tick.bind(this)
     }
 
     // countTracks : PlayList -> Number
     countTracks() {
-        return this.state.songs.length
+        const { songs } = this.state
+        return songs.length
     }
 
     // componentDidMount : PlayList -> PlayList
@@ -62,7 +39,7 @@ export default class PlayList extends React.Component {
         const audioOver = document.getElementById('audioOver')
 
         audioOver.defaultPlaybackRate = 1.0
-        audioOver.src = './frontend/sounds/30s-is-over.wav'
+        audioOver.src = './src/sounds/30s-is-over.wav'
     }
 
     // loadSong: PlayList -> Number -> PlayList
@@ -139,24 +116,24 @@ export default class PlayList extends React.Component {
         clearInterval(this.state.intervalId)
 
         this.setState({
-            intervalId: setInterval(this.tick, 2000)
-            , startTime: this.timeNow()
+            intervalId: setInterval(this.tick, 2000), startTime: this.timeNow()
         })
     }
 
     // tick : PlayList -> PlayList
     tick() {
-        const elapsedTime = this.timeNow() - this.state.startTime
+        const { elapsedTime, intervalId, playing, startTime } = this.state
+        const systemElapsedTime = this.timeNow() - startTime
 
-        if (elapsedTime > 29999) {
-            clearInterval(this.state.intervalId)
-            this.sampleOver();
+        if (systemElapsedTime > 29999) {
+            clearInterval(intervalId)
+            this.sampleOver()
         } else {
-            if (!this.state.playing) {
-                const pausedTime = elapsedTime - this.state.elapsedTime
-                this.setState({startTime: this.state.startTime + pausedTime})
+            if (!playing) {
+                const pausedTime = systemElapsedTime - elapsedTime
+                this.setState({startTime: startTime + pausedTime})
             } else {
-                this.setState({elapsedTime: elapsedTime})
+                this.setState({elapsedTime: systemElapsedTime})
             }
         }
 
@@ -204,7 +181,7 @@ export default class PlayList extends React.Component {
                 selectedIdx={selectedSongIdx}
                 onSelection={this.play}
                 title={songTitle}
-                ></Song>
+                />
             )
         })
 
@@ -217,7 +194,7 @@ export default class PlayList extends React.Component {
                     <div className='songDuration'>Length</div>
                 </li>
                 <div className='trackList'>
-                    {playList}
+                    { playList }
                 </div>
                 <li className='playList-footer'>
                     <div className='controls'>
@@ -228,8 +205,8 @@ export default class PlayList extends React.Component {
                         <i className='material-icons'
                         onClick={() => this.skipNext()}>skip_next</i>
                     </div>
-                    <div className='mobile'>Playlist Total Time: {playListTimeClockFormat} ({countTracks} songs)</div>
-                    <div className='desktop'>Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)</div>
+                    <div className='mobile'>Playlist Total Time: { playListTimeClockFormat } ({ countTracks } songs)</div>
+                    <div className='desktop'>Playlist Total Time: { playListTimeEnglishFormat } ({ countTracks } songs)</div>
                 </li>
                 <audio id='audio'></audio>
                 <audio id='audioOver'></audio>

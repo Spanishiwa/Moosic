@@ -1,13 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PlayList from './playList'
 import ContactUs from './contactUs'
-import { confirmArrayFrom } from './util'
+import PlayList from './playList'
 
 
 function Root() {
-    confirmArrayFrom()
-
     return (
         <div>
             <PlayList />
