@@ -36,7 +36,7 @@ export default class PlayList extends React.Component {
 
     // loadSampleOver : Playlist -> Playlist
     loadSampleOver() {
-        const audioOver = document.getElementById('audioOver')
+        const audioOver = this.audioOver
 
         audioOver.defaultPlaybackRate = 1.0
         audioOver.src = db.alerts[0].src
@@ -44,7 +44,7 @@ export default class PlayList extends React.Component {
 
     // loadSong: PlayList -> Number -> PlayList
     loadSong(songIdx) {
-        const audio = document.getElementById('audio')
+        const audio = this.audio
         const song = this.state.songs[songIdx]
 
         audio.defaultPlaybackRate = 1.5
@@ -63,24 +63,24 @@ export default class PlayList extends React.Component {
 
         this.resetSampleOver()
 
-        document.getElementById('audio').play()
+        this.audio.play()
         this.setState({playing: true})
     }
 
     // pause : Playlist -> Playlist
     pause() {
-        document.getElementById('audio').pause()
+        this.audio.pause()
         this.setState({playing: false})
     }
 
     resetSong() {
-        document.getElementById('audio').currentTime = 0
+        this.audio.currentTime = 0
     }
 
     sampleOver() {
         this.pause()
         this.resetSong()
-        document.getElementById('audioOver').play()
+        this.audioOver.play()
     }
 
     // selectSong : PlayList -> PlayList
@@ -156,8 +156,8 @@ export default class PlayList extends React.Component {
 
     // resetSampleOver : PlayList -> PlayList
     resetSampleOver() {
-        document.getElementById('audioOver').pause()
-        document.getElementById('audioOver').currentTime = 0
+        this.audioOver.pause()
+        this.audioOver.currentTime = 0
     }
 
     // render : PlayList -> Object
@@ -208,8 +208,8 @@ export default class PlayList extends React.Component {
                     <div className='mobile'>Playlist Total Time: { playListTimeClockFormat } ({ countTracks } songs)</div>
                     <div className='desktop'>Playlist Total Time: { playListTimeEnglishFormat } ({ countTracks } songs)</div>
                 </li>
-                <audio id='audio'></audio>
-                <audio id='audioOver'></audio>
+                <audio id='audio' ref={(audio) => this.audio = audio}></audio>
+                <audio id='audioOver' ref={(audioOver) => this.audioOver = audioOver}></audio>
             </ul>
         )
     }

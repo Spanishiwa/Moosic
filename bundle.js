@@ -32368,7 +32368,7 @@ function (_React$Component) {
   }, {
     key: "loadSampleOver",
     value: function loadSampleOver() {
-      var audioOver = document.getElementById('audioOver');
+      var audioOver = this.audioOver;
       audioOver.defaultPlaybackRate = 1.0;
       audioOver.src = _db__WEBPACK_IMPORTED_MODULE_1__.alerts[0].src;
     } // loadSong: PlayList -> Number -> PlayList
@@ -32376,7 +32376,7 @@ function (_React$Component) {
   }, {
     key: "loadSong",
     value: function loadSong(songIdx) {
-      var audio = document.getElementById('audio');
+      var audio = this.audio;
       var song = this.state.songs[songIdx];
       audio.defaultPlaybackRate = 1.5;
       audio.src = song.src;
@@ -32396,7 +32396,7 @@ function (_React$Component) {
       }
 
       this.resetSampleOver();
-      document.getElementById('audio').play();
+      this.audio.play();
       this.setState({
         playing: true
       });
@@ -32405,7 +32405,7 @@ function (_React$Component) {
   }, {
     key: "pause",
     value: function pause() {
-      document.getElementById('audio').pause();
+      this.audio.pause();
       this.setState({
         playing: false
       });
@@ -32413,14 +32413,14 @@ function (_React$Component) {
   }, {
     key: "resetSong",
     value: function resetSong() {
-      document.getElementById('audio').currentTime = 0;
+      this.audio.currentTime = 0;
     }
   }, {
     key: "sampleOver",
     value: function sampleOver() {
       this.pause();
       this.resetSong();
-      document.getElementById('audioOver').play();
+      this.audioOver.play();
     } // selectSong : PlayList -> PlayList
 
   }, {
@@ -32509,8 +32509,8 @@ function (_React$Component) {
   }, {
     key: "resetSampleOver",
     value: function resetSampleOver() {
-      document.getElementById('audioOver').pause();
-      document.getElementById('audioOver').currentTime = 0;
+      this.audioOver.pause();
+      this.audioOver.currentTime = 0;
     } // render : PlayList -> Object
 
   }, {
@@ -32582,9 +32582,15 @@ function (_React$Component) {
       }, "Playlist Total Time: ", playListTimeClockFormat, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "desktop"
       }, "Playlist Total Time: ", playListTimeEnglishFormat, " (", countTracks, " songs)")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
-        id: "audio"
+        id: "audio",
+        ref: function ref(audio) {
+          return _this2.audio = audio;
+        }
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("audio", {
-        id: "audioOver"
+        id: "audioOver",
+        ref: function ref(audioOver) {
+          return _this2.audioOver = audioOver;
+        }
       }));
     }
   }]);
