@@ -32363,6 +32363,13 @@ function (_React$Component) {
         songs: songs
       });
       this.loadSampleOver();
+    } // commponentWillUnmount : PlayList -> PlayList
+
+  }, {
+    key: "commponentWillUnmount",
+    value: function commponentWillUnmount() {
+      var intervalId = this.state.intervalId;
+      clearInterval(intervalId);
     } // loadSampleOver : Playlist -> Playlist
 
   }, {
@@ -32510,6 +32517,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "controls"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons volumeDown",
+        onClick: function onClick() {
+          return _this2.volume(-0.1);
+        }
+      }, "volume_down"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons",
         onClick: function onClick() {
           return _this2.skipPrevious();
@@ -32522,7 +32534,12 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this2.skipNext();
         }
-      }, "skip_next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, "skip_next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons volumeUp",
+        onClick: function onClick() {
+          return _this2.volume(0.1);
+        }
+      }, "volume_up"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "sampleTime"
       }, this.sampleTime(), " / 30")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mobile"
@@ -32570,7 +32587,7 @@ function (_React$Component) {
     value: function sampleTime() {
       var elapsedTime = this.state.elapsedTime;
       return Math.floor(elapsedTime / 1000);
-    } // selectSong : PlayList -> PlayList
+    } // selectSong : PlayList -> Number -> PlayList
 
   }, {
     key: "selectSong",
@@ -32611,6 +32628,18 @@ function (_React$Component) {
         intervalId: setInterval(this.tick, 500),
         startTime: this.timeNow()
       });
+    } // volume: PlayList -> Float -> PlayList
+
+  }, {
+    key: "volume",
+    value: function volume(difference) {
+      var level = parseFloat(this.audio.volume.toFixed(2)) + difference;
+      var validLevel = level <= 1 && level >= 0;
+
+      if (validLevel) {
+        this.audio.volume = level;
+        this.audioOver.volume = level;
+      }
     }
   }]);
 

@@ -30,8 +30,16 @@ export default class PlayList extends React.Component {
     // componentDidMount : PlayList -> PlayList
     componentDidMount() {
         const songs = db.songs
+
         this.setState({songs: songs})
         this.loadSampleOver()
+    }
+
+    // commponentWillUnmount : PlayList -> PlayList
+    commponentWillUnmount() {
+        const { intervalId } = this.state
+
+        clearInterval(intervalId)
     }
 
     // loadSampleOver : Playlist -> Playlist
@@ -113,6 +121,7 @@ export default class PlayList extends React.Component {
         const playListTimeEnglishFormat = secsToEnglish(this.toSecs())
         const playListTimeClockFormat = secsToHrsMinsSecs(this.toSecs())
         const { playing, selectedSongIdx, songs } = this.state
+
         const playOnClick = playing ? () => this.pause()
         : () => this.play(selectedSongIdx)
 
@@ -145,12 +154,16 @@ export default class PlayList extends React.Component {
                 </div>
                 <li className='playList-footer'>
                     <div className='controls'>
+                        <i className='material-icons volumeDown'
+                        onClick={() => this.volume(-0.1)}>volume_down</i>
                         <i className='material-icons'
                         onClick={() => this.skipPrevious()}>skip_previous</i>
                         <i className='material-icons play' onClick={playOnClick}>
                         {playing ? 'pause_circle_filled' : 'play_arrow'}</i>
                         <i className='material-icons'
                         onClick={() => this.skipNext()}>skip_next</i>
+                        <i className='material-icons volumeUp'
+                        onClick={() => this.volume(0.1)}>volume_up</i>
                         <p className='sampleTime'>{this.sampleTime()} / 30</p>
                     </div>
                     <div className='mobile'>
@@ -193,7 +206,7 @@ export default class PlayList extends React.Component {
         return Math.floor((elapsedTime / 1000))
     }
 
-    // selectSong : PlayList -> PlayList
+    // selectSong : PlayList -> Number -> PlayList
     selectSong(songIdx) {
         this.setState({selectedSongIdx: songIdx})
         this.loadSong(songIdx)
@@ -230,5 +243,16 @@ export default class PlayList extends React.Component {
             intervalId: setInterval(this.tick, 500),
             startTime: this.timeNow()
         })
+    }
+
+    // volume: PlayList -> Float -> PlayList
+    volume(difference) {
+        const level = parseFloat((this.audio.volume).toFixed(2)) + difference
+        const validLevel = level <= 1 && level >= 0
+
+        if (validLevel) {
+            this.audio.volume = level
+            this.audioOver.volume = level
+        }
     }
 }

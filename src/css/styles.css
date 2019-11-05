@@ -311,6 +311,12 @@ html {
   body main .playList li.playList-footer .controls p {
     margin: 15px 0px 0px 0px;
   }
+  body main .playList li.playList-footer .controls .volumeDown {
+    margin-right: 30px;
+  }
+  body main .playList li.playList-footer .controls .volumeUp {
+    margin-left: 30px;
+  }
   body main .playList li.playList-footer .controls,
   body main .playList li.playList-footer .mobile {
     flex-basis: 100%;
@@ -443,18 +449,24 @@ html {
     padding-bottom: 15px;
   }
   body main .playList li.playList-footer .controls {
-    flex: 1 1 25%;
+    flex: 1 1 30%;
     text-align: center;
   }
   body main .playList li.playList-footer .controls p {
     margin: 10px 0px 0px 0px;
+  }
+  body main .playList li.playList-footer .controls .volumeDown {
+    margin-right: 10px;
+  }
+  body main .playList li.playList-footer .controls .volumeUp {
+    margin-left: 10px;
   }
   body main .playList li.playList-footer div.mobile {
     display: none;
   }
   body main .playList li.playList-footer .desktop {
     display: block;
-    flex: 1 1 75%;
+    flex: 1 1 70%;
     text-align: center;
   }
   body main .playList li.playList-footer .material-icons {
