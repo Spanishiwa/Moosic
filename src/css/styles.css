@@ -306,6 +306,10 @@ html {
   body main .playList li.playList-footer {
     text-align: center;
     overflow: hidden;
+    padding: 15px 10px;
+  }
+  body main .playList li.playList-footer .controls p {
+    margin: 15px 0px 0px 0px;
   }
   body main .playList li.playList-footer .controls,
   body main .playList li.playList-footer .mobile {
@@ -436,10 +440,14 @@ html {
   body main .playList li.playList-footer {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 15px;
   }
   body main .playList li.playList-footer .controls {
     flex: 1 1 25%;
     text-align: center;
+  }
+  body main .playList li.playList-footer .controls p {
+    margin: 10px 0px 0px 0px;
   }
   body main .playList li.playList-footer div.mobile {
     display: none;

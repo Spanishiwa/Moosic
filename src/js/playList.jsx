@@ -56,14 +56,14 @@ export default class PlayList extends React.Component {
         songIdx = songIdx === -1 ? 0 : songIdx
         const { selectedSongIdx, elapsedTime } = this.state
 
-        if (songIdx !== selectedSongIdx || elapsedTime > 27500) {
+        if (songIdx !== selectedSongIdx || elapsedTime > 29999) {
+            this.setState({elapsedTime: 0})
             this.selectSong(songIdx)
             this.startTimer()
         }
 
-        this.resetSampleOver()
-
         this.audio.play()
+        this.resetSampleOver()
         this.setState({playing: true})
     }
 
@@ -73,67 +73,20 @@ export default class PlayList extends React.Component {
         this.setState({playing: false})
     }
 
-    resetSong() {
-        this.audio.currentTime = 0
-    }
-
-    sampleOver() {
-        this.pause()
-        this.resetSong()
-        this.audioOver.play()
-    }
-
-    // selectSong : PlayList -> PlayList
-    selectSong(songIdx) {
-        this.setState({selectedSongIdx: songIdx})
-        this.loadSong(songIdx)
-    }
-
-    // skipNext : PlayList -> PlayList
-    skipNext() {
-        const { selectedSongIdx } = this.state
-        const isAtLoopPoint = selectedSongIdx >= this.countTracks() - 1 ||
-        selectedSongIdx < 0
-
-        const songIdx = isAtLoopPoint ? 0 : (selectedSongIdx + 1)
-
-        this.selectSong(songIdx)
-        this.play(songIdx)
-    }
-
-    // skipPrevious : PlayList -> PlayList
-    skipPrevious() {
-        const { selectedSongIdx } = this.state
-        const songIdx = selectedSongIdx < 1 ? (this.countTracks() - 1)
-        : selectedSongIdx -1
-
-        this.selectSong(songIdx)
-        this.play(songIdx)
-    }
-
-    // startTimer : PlayList -> PlayList
-    startTimer() {
-        clearInterval(this.state.intervalId)
-
-        this.setState({
-            intervalId: setInterval(this.tick, 2000), startTime: this.timeNow()
-        })
-    }
-
     // tick : PlayList -> PlayList
     tick() {
         const { elapsedTime, intervalId, playing, startTime } = this.state
-        const systemElapsedTime = this.timeNow() - startTime
+        const systemElapsedTime = Math.floor(((this.timeNow() - startTime)))
 
         if (systemElapsedTime > 29999) {
             clearInterval(intervalId)
             this.sampleOver()
         } else {
-            if (!playing) {
-                const pausedTime = systemElapsedTime - elapsedTime
-                this.setState({startTime: startTime + pausedTime})
-            } else {
+            if (playing) {
                 this.setState({elapsedTime: systemElapsedTime})
+            } else {
+                this.setState({startTime: startTime + 500})
+
             }
         }
 
@@ -152,12 +105,6 @@ export default class PlayList extends React.Component {
         }
 
         return songs.reduce((sumDuration), 0)
-    }
-
-    // resetSampleOver : PlayList -> PlayList
-    resetSampleOver() {
-        this.audioOver.pause()
-        this.audioOver.currentTime = 0
     }
 
     // render : PlayList -> Object
@@ -204,13 +151,84 @@ export default class PlayList extends React.Component {
                         {playing ? 'pause_circle_filled' : 'play_arrow'}</i>
                         <i className='material-icons'
                         onClick={() => this.skipNext()}>skip_next</i>
+                        <p className='sampleTime'>{this.sampleTime()} / 30</p>
                     </div>
-                    <div className='mobile'>Playlist Total Time: { playListTimeClockFormat } ({ countTracks } songs)</div>
-                    <div className='desktop'>Playlist Total Time: { playListTimeEnglishFormat } ({ countTracks } songs)</div>
+                    <div className='mobile'>
+                        Playlist Total Time: {playListTimeClockFormat} ({countTracks} songs)
+                    </div>
+                    <div className='desktop'>
+                        Playlist Total Time: {playListTimeEnglishFormat} ({countTracks} songs)
+                    </div>
                 </li>
                 <audio id='audio' ref={(audio) => this.audio = audio}></audio>
                 <audio id='audioOver' ref={(audioOver) => this.audioOver = audioOver}></audio>
             </ul>
         )
+    }
+
+    // resetSampleOver : PlayList -> PlayList
+    resetSampleOver() {
+        this.audioOver.pause()
+        this.audioOver.currentTime = 0
+    }
+
+    // resetSong : PlayList -> PlayList
+    resetSong() {
+        this.audio.currentTime = 0
+    }
+
+    // sampleOver: PlayList -> PlayList
+    sampleOver() {
+        this.audioOver.play()
+        this.pause()
+        this.resetSong()
+        this.setState({elapsedTime: 30000})
+    }
+
+
+    // sampleTime : PlayList -> PlayList
+    sampleTime() {
+        const { elapsedTime } = this.state
+
+        return Math.floor((elapsedTime / 1000))
+    }
+
+    // selectSong : PlayList -> PlayList
+    selectSong(songIdx) {
+        this.setState({selectedSongIdx: songIdx})
+        this.loadSong(songIdx)
+    }
+
+    // skipNext : PlayList -> PlayList
+    skipNext() {
+        const { selectedSongIdx } = this.state
+        const isAtLoopPoint = selectedSongIdx >= this.countTracks() - 1 ||
+        selectedSongIdx < 0
+
+        const songIdx = isAtLoopPoint ? 0 : (selectedSongIdx + 1)
+
+        this.selectSong(songIdx)
+        this.play(songIdx)
+    }
+
+    // skipPrevious : PlayList -> PlayList
+    skipPrevious() {
+        const { selectedSongIdx } = this.state
+        const songIdx = selectedSongIdx < 1 ? (this.countTracks() - 1)
+        : selectedSongIdx -1
+
+        this.selectSong(songIdx)
+        this.play(songIdx)
+    }
+
+    // startTimer : PlayList -> PlayList
+    startTimer() {
+        const { intervalId, startTime } = this.state
+        clearInterval(intervalId)
+
+        this.setState({
+            intervalId: setInterval(this.tick, 500),
+            startTime: this.timeNow()
+        })
     }
 }

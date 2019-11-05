@@ -32390,13 +32390,16 @@ function (_React$Component) {
           selectedSongIdx = _this$state.selectedSongIdx,
           elapsedTime = _this$state.elapsedTime;
 
-      if (songIdx !== selectedSongIdx || elapsedTime > 27500) {
+      if (songIdx !== selectedSongIdx || elapsedTime > 29999) {
+        this.setState({
+          elapsedTime: 0
+        });
         this.selectSong(songIdx);
         this.startTimer();
       }
 
-      this.resetSampleOver();
       this.audio.play();
+      this.resetSampleOver();
       this.setState({
         playing: true
       });
@@ -32409,56 +32412,6 @@ function (_React$Component) {
       this.setState({
         playing: false
       });
-    }
-  }, {
-    key: "resetSong",
-    value: function resetSong() {
-      this.audio.currentTime = 0;
-    }
-  }, {
-    key: "sampleOver",
-    value: function sampleOver() {
-      this.pause();
-      this.resetSong();
-      this.audioOver.play();
-    } // selectSong : PlayList -> PlayList
-
-  }, {
-    key: "selectSong",
-    value: function selectSong(songIdx) {
-      this.setState({
-        selectedSongIdx: songIdx
-      });
-      this.loadSong(songIdx);
-    } // skipNext : PlayList -> PlayList
-
-  }, {
-    key: "skipNext",
-    value: function skipNext() {
-      var selectedSongIdx = this.state.selectedSongIdx;
-      var isAtLoopPoint = selectedSongIdx >= this.countTracks() - 1 || selectedSongIdx < 0;
-      var songIdx = isAtLoopPoint ? 0 : selectedSongIdx + 1;
-      this.selectSong(songIdx);
-      this.play(songIdx);
-    } // skipPrevious : PlayList -> PlayList
-
-  }, {
-    key: "skipPrevious",
-    value: function skipPrevious() {
-      var selectedSongIdx = this.state.selectedSongIdx;
-      var songIdx = selectedSongIdx < 1 ? this.countTracks() - 1 : selectedSongIdx - 1;
-      this.selectSong(songIdx);
-      this.play(songIdx);
-    } // startTimer : PlayList -> PlayList
-
-  }, {
-    key: "startTimer",
-    value: function startTimer() {
-      clearInterval(this.state.intervalId);
-      this.setState({
-        intervalId: setInterval(this.tick, 2000),
-        startTime: this.timeNow()
-      });
     } // tick : PlayList -> PlayList
 
   }, {
@@ -32469,20 +32422,19 @@ function (_React$Component) {
           intervalId = _this$state2.intervalId,
           playing = _this$state2.playing,
           startTime = _this$state2.startTime;
-      var systemElapsedTime = this.timeNow() - startTime;
+      var systemElapsedTime = Math.floor(this.timeNow() - startTime);
 
       if (systemElapsedTime > 29999) {
         clearInterval(intervalId);
         this.sampleOver();
       } else {
-        if (!playing) {
-          var pausedTime = systemElapsedTime - elapsedTime;
+        if (playing) {
           this.setState({
-            startTime: startTime + pausedTime
+            elapsedTime: systemElapsedTime
           });
         } else {
           this.setState({
-            elapsedTime: systemElapsedTime
+            startTime: startTime + 500
           });
         }
       }
@@ -32504,13 +32456,6 @@ function (_React$Component) {
       };
 
       return songs.reduce(sumDuration, 0);
-    } // resetSampleOver : PlayList -> PlayList
-
-  }, {
-    key: "resetSampleOver",
-    value: function resetSampleOver() {
-      this.audioOver.pause();
-      this.audioOver.currentTime = 0;
     } // render : PlayList -> Object
 
   }, {
@@ -32577,7 +32522,9 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this2.skipNext();
         }
-      }, "skip_next")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "skip_next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "sampleTime"
+      }, this.sampleTime(), " / 30")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mobile"
       }, "Playlist Total Time: ", playListTimeClockFormat, " (", countTracks, " songs)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "desktop"
@@ -32592,6 +32539,78 @@ function (_React$Component) {
           return _this2.audioOver = audioOver;
         }
       }));
+    } // resetSampleOver : PlayList -> PlayList
+
+  }, {
+    key: "resetSampleOver",
+    value: function resetSampleOver() {
+      this.audioOver.pause();
+      this.audioOver.currentTime = 0;
+    } // resetSong : PlayList -> PlayList
+
+  }, {
+    key: "resetSong",
+    value: function resetSong() {
+      this.audio.currentTime = 0;
+    } // sampleOver: PlayList -> PlayList
+
+  }, {
+    key: "sampleOver",
+    value: function sampleOver() {
+      this.audioOver.play();
+      this.pause();
+      this.resetSong();
+      this.setState({
+        elapsedTime: 30000
+      });
+    } // sampleTime : PlayList -> PlayList
+
+  }, {
+    key: "sampleTime",
+    value: function sampleTime() {
+      var elapsedTime = this.state.elapsedTime;
+      return Math.floor(elapsedTime / 1000);
+    } // selectSong : PlayList -> PlayList
+
+  }, {
+    key: "selectSong",
+    value: function selectSong(songIdx) {
+      this.setState({
+        selectedSongIdx: songIdx
+      });
+      this.loadSong(songIdx);
+    } // skipNext : PlayList -> PlayList
+
+  }, {
+    key: "skipNext",
+    value: function skipNext() {
+      var selectedSongIdx = this.state.selectedSongIdx;
+      var isAtLoopPoint = selectedSongIdx >= this.countTracks() - 1 || selectedSongIdx < 0;
+      var songIdx = isAtLoopPoint ? 0 : selectedSongIdx + 1;
+      this.selectSong(songIdx);
+      this.play(songIdx);
+    } // skipPrevious : PlayList -> PlayList
+
+  }, {
+    key: "skipPrevious",
+    value: function skipPrevious() {
+      var selectedSongIdx = this.state.selectedSongIdx;
+      var songIdx = selectedSongIdx < 1 ? this.countTracks() - 1 : selectedSongIdx - 1;
+      this.selectSong(songIdx);
+      this.play(songIdx);
+    } // startTimer : PlayList -> PlayList
+
+  }, {
+    key: "startTimer",
+    value: function startTimer() {
+      var _this$state4 = this.state,
+          intervalId = _this$state4.intervalId,
+          startTime = _this$state4.startTime;
+      clearInterval(intervalId);
+      this.setState({
+        intervalId: setInterval(this.tick, 500),
+        startTime: this.timeNow()
+      });
     }
   }]);
 
