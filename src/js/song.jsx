@@ -1,4 +1,5 @@
 import React from 'react'
+import { Draggable } from "react-beautiful-dnd";
 import { secsToHrsMinsSecs } from './util'
 
 const Song = ({ album,
@@ -12,12 +13,20 @@ const Song = ({ album,
     const className = idx === selectedIdx ? 'active' : ''
 
     return (
-        <li className={className} onClick={() => onSelection(idx)}>
-            <div className='title'>{title}</div>
-            <div className='duration'>{durationClockFormat}</div>
-            <div className='artist'>{artist}</div>
-            <div className='album'>{album}</div>
-        </li>
+        <Draggable key={idx} draggableId={idx.toString()} index={idx}>
+            {provided => (
+                <li className={className}
+                onClick={() => onSelection(idx)}
+                ref={provided.innerRef}
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}>
+                    <div className='title'>{title}</div>
+                    <div className='duration'>{durationClockFormat}</div>
+                    <div className='artist'>{artist}</div>
+                    <div className='album'>{album}</div>
+                </li>
+            )}
+        </Draggable>
     )
 }
 

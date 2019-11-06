@@ -1,8 +1,8 @@
 import React from 'react'
 import db from './db'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { secsToEnglish, secsToHrsMinsSecs } from './util'
 import Song from './song'
-
 
 export default class PlayList extends React.Component {
     constructor(props) {
@@ -17,6 +17,8 @@ export default class PlayList extends React.Component {
             startTime: 0
         }
 
+
+        this.onDragEnd = this.onDragEnd.bind(this)
         this.play = this.play.bind(this)
         this.tick = this.tick.bind(this)
     }
@@ -120,6 +122,30 @@ export default class PlayList extends React.Component {
 
         return songs.reduce((sumDuration), 0)
     }
+    // onDragEnd : PlayList -> PlayList
+    onDragEnd(result) {
+        const { destination, source, draggableId } = result;
+        const startIndex = source.index
+        const endIndex = destination.index
+
+        if ( !destination ) { return }
+
+        if ( destination.index === source.index ) { return }
+
+        this.setState({songs: this.reorderSongs(startIndex, endIndex)})
+
+    }
+
+    // reorderSongs: PlayList -> Number -> Number -> PlayList
+    reorderSongs(startIndex, endIndex) {
+        const { songs } = this.state
+        const updatedSongs = [...songs]
+        const [removedSong] = updatedSongs.splice(startIndex, 1)
+
+        updatedSongs.splice(endIndex, 0, removedSong)
+
+        return updatedSongs
+    }
 
     // render : PlayList -> Object
     render() {
@@ -159,9 +185,18 @@ export default class PlayList extends React.Component {
                     <div className='duration'
                     onClick={() => this.sortBy('duration')}>Length</div>
                 </li>
-                <div className='trackList'>
-                    { trackList }
-                </div>
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <Droppable droppableId={"droppable"}>
+                        {provided => (
+                            <div className='trackList'
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}>
+                                { trackList }
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
                 <li className='playList-footer'>
                     <div className='controls'>
                         <i className='material-icons volumeDown'

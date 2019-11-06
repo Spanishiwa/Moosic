@@ -10,6 +10,7 @@ Moosic is a gh-pages hosted, mobile-ready, ReactJS, LESS powered HTML5 webpage c
   - 30s trial over audio sample notifies you when your free music play is over
   - Volume control
   - Sort by Album, Artist, Length, or Title
+  - Drag and drop re-ordering with react-beautiful-dnd
 
 
 You can also:
@@ -20,6 +21,7 @@ Moosic is a lightweight app complete with CSS3 animations and pre-loaded fonts f
 
 Features to come:
 > Hover/Active states for sorting by Album, Artist, Length, or Title
+> Drag and drop hover styles while re-ordering
 
 ### Tech
 
