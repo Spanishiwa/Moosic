@@ -173,7 +173,7 @@ body {
                 .material-icons {
                     border: 2px solid transparent;
                     border-radius: 50%;
-                    box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @primary-color-light inset;
+                    box-shadow: 0 0 0 1px @primary-color-light inset, 0px 0px 3px 2px @primary-color-light inset;
                     cursor: pointer;
                     text-shadow: -1px -1px @secondary-color-light;
                     transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -184,13 +184,17 @@ body {
                         background-color: @primary-color-light;
                         border: 2px inset @secondary-color;
                         border-radius: 50%;
-                        box-shadow: 0 0 0 1px @primary-color-light inset, 1px 1px 3px 2px @secondary-color inset;
+                        box-shadow: 0 0 0 1px @primary-color-light inset, 0px 0px 3px 3px @secondary-color inset;
                         box-sizing: border-box;
                         color: @secondary-color;
                         text-shadow: -1px -1px @secondary-color-light;
                         transition: box-shadow 0.6s ease-in-out, text-shadow 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out;
                     }
                 }
+            }
+
+            .trackList {
+                font-family: 'Helvetica';
             }
         }
     }
@@ -355,6 +359,7 @@ html {
                 li.playList-header {
                     .album {
                         align-self: flex-end;
+                        cursor: pointer;
                         flex: 1 1 40%;
                         font-size: 13px;
                         order: 4;
@@ -363,6 +368,7 @@ html {
 
                     .artist {
                         align-self: flex-end;
+                        cursor: pointer;
                         flex: 1 1 40%;
                         font-size: 13px;
                         order: 3;
@@ -371,18 +377,22 @@ html {
 
                     .duration {
                         align-self: flex-start;
+                        cursor: pointer;
                         flex: 1 1 40%;
                         font-size: 10px;
+                        margin-bottom: 20px;
                         order: 2;
                         text-align: right;
                     }
 
                     .title {
                         align-self: flex-start;
+                        cursor: pointer;
                         flex: 1 1 40%;
                         flex-direction: row;
                         text-align: left;
                         font-size: 13px;
+                        margin-bottom: 20px;
                         order: 1;
                     }
                 }
@@ -525,22 +535,26 @@ html {
                     overflow-y: auto;
 
                     .album {
+                        cursor: pointer;
                         flex: 1 1 27%;
                         text-align: center;
                     }
 
                     .artist {
+                        cursor: pointer;
                         flex: 1 1 16%;
                         text-align: center;
                     }
 
                     .duration {
+                        cursor: pointer;
                         flex: 1 1 12%;
                         order: 4;
                         text-align: center;
-                    }
+                        }
 
                     .title {
+                        cursor: pointer;
                         flex: 1 1 44%;
                         flex-direction: row;
                         text-align: center;

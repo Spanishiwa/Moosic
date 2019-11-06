@@ -32302,6 +32302,14 @@ var _db__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require_
 /* harmony import */ var _song__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./song */ "./src/js/song.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -32345,10 +32353,17 @@ function (_React$Component) {
     _this.play = _this.play.bind(_assertThisInitialized(_this));
     _this.tick = _this.tick.bind(_assertThisInitialized(_this));
     return _this;
-  } // countTracks : PlayList -> Number
+  } //  clearTimer : PlayList -> PlayList
 
 
   _createClass(PlayList, [{
+    key: "clearTimer",
+    value: function clearTimer() {
+      var intervalId = this.state.intervalId;
+      clearInterval(intervalId);
+    } // countTracks : PlayList -> Number
+
+  }, {
     key: "countTracks",
     value: function countTracks() {
       var songs = this.state.songs;
@@ -32368,8 +32383,7 @@ function (_React$Component) {
   }, {
     key: "commponentWillUnmount",
     value: function commponentWillUnmount() {
-      var intervalId = this.state.intervalId;
-      clearInterval(intervalId);
+      this.clearTimer();
     } // loadSampleOver : Playlist -> Playlist
 
   }, {
@@ -32431,19 +32445,19 @@ function (_React$Component) {
           startTime = _this$state2.startTime;
       var systemElapsedTime = Math.floor(this.timeNow() - startTime);
 
-      if (systemElapsedTime > 29999) {
-        clearInterval(intervalId);
-        this.sampleOver();
-      } else {
-        if (playing) {
-          this.setState({
-            elapsedTime: systemElapsedTime
-          });
-        } else {
-          this.setState({
-            startTime: startTime + 500
-          });
+      if (playing) {
+        if (systemElapsedTime > 29999) {
+          clearInterval(intervalId);
+          this.sampleOver();
         }
+
+        this.setState({
+          elapsedTime: systemElapsedTime
+        });
+      } else {
+        this.setState({
+          startTime: startTime + 500
+        });
       }
     } // timeNow : PlayList -> PlayList
 
@@ -32482,7 +32496,7 @@ function (_React$Component) {
       } : function () {
         return _this2.play(selectedSongIdx);
       };
-      var playList = songs.map(function (song, idx) {
+      var trackList = songs.map(function (song, idx) {
         var artist = song.artist,
             album = song.album,
             duration = song.duration,
@@ -32503,16 +32517,28 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "playList-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "title"
+        className: "title",
+        onClick: function onClick() {
+          return _this2.sortBy('title');
+        }
       }, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "artist"
+        className: "artist",
+        onClick: function onClick() {
+          return _this2.sortBy('artist');
+        }
       }, "Artist"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "album"
+        className: "album",
+        onClick: function onClick() {
+          return _this2.sortBy('album');
+        }
       }, "Album"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "duration"
+        className: "duration",
+        onClick: function onClick() {
+          return _this2.sortBy('duration');
+        }
       }, "Length")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "trackList"
-      }, playList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, trackList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "playList-footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "controls"
@@ -32615,15 +32641,34 @@ function (_React$Component) {
       var songIdx = selectedSongIdx < 1 ? this.countTracks() - 1 : selectedSongIdx - 1;
       this.selectSong(songIdx);
       this.play(songIdx);
+    } // sort : PlayList -> PlayList
+
+  }, {
+    key: "sortBy",
+    value: function sortBy(key) {
+      var songs = this.state.songs;
+
+      var sorted = _toConsumableArray(songs);
+
+      sorted = sorted.sort(function (currentSong, nextSong) {
+        var currentKey = currentSong[key].toLowerCase();
+        var nextKey = nextSong[key].toLowerCase();
+        return currentKey < nextKey ? -1 : currentKey > nextKey ? 1 : 0;
+      });
+
+      if (JSON.stringify(sorted) === JSON.stringify(songs)) {
+        sorted = sorted.reverse();
+      }
+
+      this.setState({
+        songs: sorted
+      });
     } // startTimer : PlayList -> PlayList
 
   }, {
     key: "startTimer",
     value: function startTimer() {
-      var _this$state4 = this.state,
-          intervalId = _this$state4.intervalId,
-          startTime = _this$state4.startTime;
-      clearInterval(intervalId);
+      this.clearTimer();
       this.setState({
         intervalId: setInterval(this.tick, 500),
         startTime: this.timeNow()

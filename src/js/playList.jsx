@@ -21,9 +21,17 @@ export default class PlayList extends React.Component {
         this.tick = this.tick.bind(this)
     }
 
+    //  clearTimer : PlayList -> PlayList
+    clearTimer() {
+        const { intervalId } = this.state
+
+        clearInterval(intervalId)
+    }
+
     // countTracks : PlayList -> Number
     countTracks() {
         const { songs } = this.state
+
         return songs.length
     }
 
@@ -37,9 +45,7 @@ export default class PlayList extends React.Component {
 
     // commponentWillUnmount : PlayList -> PlayList
     commponentWillUnmount() {
-        const { intervalId } = this.state
-
-        clearInterval(intervalId)
+        this.clearTimer()
     }
 
     // loadSampleOver : Playlist -> Playlist
@@ -86,16 +92,16 @@ export default class PlayList extends React.Component {
         const { elapsedTime, intervalId, playing, startTime } = this.state
         const systemElapsedTime = Math.floor(((this.timeNow() - startTime)))
 
-        if (systemElapsedTime > 29999) {
-            clearInterval(intervalId)
-            this.sampleOver()
-        } else {
-            if (playing) {
-                this.setState({elapsedTime: systemElapsedTime})
-            } else {
-                this.setState({startTime: startTime + 500})
-
+        if (playing) {
+            if (systemElapsedTime >29999) {
+                clearInterval(intervalId)
+                this.sampleOver()
             }
+
+            this.setState({elapsedTime: systemElapsedTime})
+        } else {
+            this.setState({startTime: startTime + 500})
+
         }
 
     }
@@ -125,7 +131,7 @@ export default class PlayList extends React.Component {
         const playOnClick = playing ? () => this.pause()
         : () => this.play(selectedSongIdx)
 
-        const playList = songs.map((song, idx) => {
+        const trackList = songs.map((song, idx) => {
             const { artist, album, duration, title } = song
             return (
                 <Song
@@ -144,13 +150,17 @@ export default class PlayList extends React.Component {
         return (
             <ul className='playList'>
                 <li className='playList-header'>
-                    <div className='title'>Title</div>
-                    <div className='artist'>Artist</div>
-                    <div className='album'>Album</div>
-                    <div className='duration'>Length</div>
+                    <div className='title'
+                    onClick={() => this.sortBy('title')}>Title</div>
+                    <div className='artist'
+                    onClick={() => this.sortBy('artist')}>Artist</div>
+                    <div className='album'
+                    onClick={() => this.sortBy('album')}>Album</div>
+                    <div className='duration'
+                    onClick={() => this.sortBy('duration')}>Length</div>
                 </li>
                 <div className='trackList'>
-                    { playList }
+                    { trackList }
                 </div>
                 <li className='playList-footer'>
                     <div className='controls'>
@@ -234,10 +244,28 @@ export default class PlayList extends React.Component {
         this.play(songIdx)
     }
 
+    // sort : PlayList -> PlayList
+    sortBy(key) {
+        const { songs } = this.state
+        let sorted = [...songs]
+
+        sorted = sorted.sort(function(currentSong, nextSong) {
+            const currentKey = currentSong[key].toLowerCase()
+            const nextKey = nextSong[key].toLowerCase()
+
+            return (currentKey < nextKey) ? -1 : (currentKey > nextKey) ? 1 : 0
+        })
+
+        if ((JSON.stringify(sorted)) === (JSON.stringify(songs))) {
+            sorted = sorted.reverse()
+        }
+
+        this.setState({songs: sorted})
+    }
+
     // startTimer : PlayList -> PlayList
     startTimer() {
-        const { intervalId, startTime } = this.state
-        clearInterval(intervalId)
+        this.clearTimer()
 
         this.setState({
             intervalId: setInterval(this.tick, 500),

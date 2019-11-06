@@ -8,6 +8,8 @@ Moosic is a gh-pages hosted, mobile-ready, ReactJS, LESS powered HTML5 webpage c
 
   - Skip forward or skip reverse songs in the music player
   - 30s trial over audio sample notifies you when your free music play is over
+  - Volume control
+  - Sort by Album, Artist, Length, or Title
 
 
 You can also:
@@ -17,7 +19,7 @@ You can also:
 Moosic is a lightweight app complete with CSS3 animations and pre-loaded fonts from Google.
 
 Features to come:
-> Sort playlist by Album, Artist, Duration, or Title
+> Hover/Active states for sorting by Album, Artist, Length, or Title
 
 ### Tech
 
