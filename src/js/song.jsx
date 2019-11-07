@@ -18,6 +18,7 @@ const Song = ({ album,
                 <li className={className}
                 onClick={() => onSelection(idx)}
                 ref={provided.innerRef}
+                id={`yesyes${idx}`}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}>
                     <div className='title'>{title}</div>

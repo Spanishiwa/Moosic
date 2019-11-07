@@ -122,18 +122,16 @@ export default class PlayList extends React.Component {
 
         return songs.reduce((sumDuration), 0)
     }
+
     // onDragEnd : PlayList -> PlayList
     onDragEnd(result) {
         const { destination, source, draggableId } = result;
-        const startIndex = source.index
-        const endIndex = destination.index
+        if ( !destination || destination.index === source.index ) { return }
 
-        if ( !destination ) { return }
+        const updatedSongs = this.reorderSongs(source.index, destination.index)
 
-        if ( destination.index === source.index ) { return }
-
-        this.setState({songs: this.reorderSongs(startIndex, endIndex)})
-
+        const updatedSongIdx = this.selectedSongIdx(updatedSongs)
+        this.setState({songs: updatedSongs, selectedSongIdx: updatedSongIdx})
     }
 
     // reorderSongs: PlayList -> Number -> Number -> PlayList
@@ -295,7 +293,18 @@ export default class PlayList extends React.Component {
             sorted = sorted.reverse()
         }
 
-        this.setState({songs: sorted})
+        const updatedSongIdx = this.selectedSongIdx(sorted)
+
+        this.setState({songs: sorted, selectedSongIdx: updatedSongIdx})
+    }
+
+    selectedSongIdx(trackList) {
+        const { songs, selectedSongIdx } = this.state
+        const currentSong = songs[selectedSongIdx]
+        const songIdx = trackList.findIndex(song => song === currentSong)
+
+        return songIdx
+
     }
 
     // startTimer : PlayList -> PlayList

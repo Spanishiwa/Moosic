@@ -46106,19 +46106,16 @@ function (_React$Component) {
       var destination = result.destination,
           source = result.source,
           draggableId = result.draggableId;
-      var startIndex = source.index;
-      var endIndex = destination.index;
 
-      if (!destination) {
+      if (!destination || destination.index === source.index) {
         return;
       }
 
-      if (destination.index === source.index) {
-        return;
-      }
-
+      var updatedSongs = this.reorderSongs(source.index, destination.index);
+      var updatedSongIdx = this.selectedSongIdx(updatedSongs);
       this.setState({
-        songs: this.reorderSongs(startIndex, endIndex)
+        songs: updatedSongs,
+        selectedSongIdx: updatedSongIdx
       });
     } // reorderSongs: PlayList -> Number -> Number -> PlayList
 
@@ -46326,9 +46323,23 @@ function (_React$Component) {
         sorted = sorted.reverse();
       }
 
+      var updatedSongIdx = this.selectedSongIdx(sorted);
       this.setState({
-        songs: sorted
+        songs: sorted,
+        selectedSongIdx: updatedSongIdx
       });
+    }
+  }, {
+    key: "selectedSongIdx",
+    value: function selectedSongIdx(trackList) {
+      var _this$state4 = this.state,
+          songs = _this$state4.songs,
+          selectedSongIdx = _this$state4.selectedSongIdx;
+      var currentSong = songs[selectedSongIdx];
+      var songIdx = trackList.findIndex(function (song) {
+        return song === currentSong;
+      });
+      return songIdx;
     } // startTimer : PlayList -> PlayList
 
   }, {
@@ -46400,7 +46411,8 @@ var Song = function Song(_ref) {
       onClick: function onClick() {
         return onSelection(idx);
       },
-      ref: provided.innerRef
+      ref: provided.innerRef,
+      id: "yesyes".concat(idx)
     }, provided.draggableProps, provided.dragHandleProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "title"
     }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
